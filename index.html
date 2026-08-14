@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="poppins_e1585a45-module__UP0NmG__variable h-full antialiased">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ictfromabc · Student Portal</title>
+    <!-- Font preloads -->
+    <link rel="preload" href="/_next/static/immutable/media/47fe1b7cd6e6ed85-s.p.1n2oi-d4a-xww.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/immutable/media/829ba4228c966254-s.p.0zvxjg5nywxta.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/immutable/media/8e6fa89aa22d24ec-s.p.1bg6trwi21i5q.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/immutable/media/a218039a3287bcfd-s.p.17e3l4txdrufi.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/immutable/media/e2334d715941921e-s.p.2g9xiodaln20i.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Firebase SDK (modular) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js",
+                "firebase/database": "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js",
+                "firebase/analytics": "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- ===== AUTH SCREEN ===== -->
+    <div id="authScreen" class="min-h-screen bg-black flex flex-col lg:flex-row relative overflow-x-hidden text-white font-sans">
+        <!-- Mobile Auth -->
+        <div class="flex lg:hidden flex-col items-center w-full min-h-screen px-4 pt-4 pb-6 z-10">
+            <div class="relative w-full max-w-[440px] min-h-[360px] flex flex-col justify-end items-center mb-2 pt-4">
+                <img src="/loginmb.png" alt="Speaker" class="absolute -bottom-12 sm:-bottom-16 w-[115%] h-[110%] max-w-none object-contain object-bottom opacity-45 pointer-events-none z-0" />
+                <div class="relative z-10 text-center flex flex-col items-center mb-2 scale-90 sm:scale-100">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1"><span class="text-white">ict</span><span class="text-[#db3900]">from</span><span class="text-white">abc</span></h1>
+                    <div class="relative inline-block mb-2"><p class="text-[11px] sm:text-xs text-gray-200 font-medium z-10 relative px-2 font-sinhala">ලංකාවේ විශාලතම තොරතුරු තාක්ෂණික පන්තිය</p><div class="absolute top-1/2 left-0 w-full h-[2px] bg-white/70 z-20"></div></div>
+                    <p class="text-sm sm:text-base font-bold leading-tight font-sinhala text-white">ලංකාවේ වැඩිම A හා B සාමාර්ථ සහිත<br />තොරතුරු තාක්ෂණ පන්තිය</p>
+                </div>
+            </div>
+            <div class="login-card-modern">
+                <h2 style="color:white;font-size:1.8rem;font-weight:800;text-align:center;margin-bottom:0.2rem;"><span style="color:#db3900;">ict</span>fromabc</h2>
+                <p style="text-align:center;color:#aaa;font-size:0.9rem;margin-bottom:1.5rem;">Student Login</p>
+                <input type="text" id="mobilePhoneInput" placeholder="Phone Number" />
+                <input type="password" id="mobilePasswordInput" placeholder="Password" />
+                <button id="mobileLoginBtn" class="home-btn home-btn-success w-full justify-center">🔐 Login</button>
+                <button id="mobileGoogleBtn" class="btn-google w-full"><svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M17.64 9.2c0-.6-.1-1.2-.2-1.8h-8v3.4h4.9c-.2 1.2-.9 2.1-1.8 2.8v2.3h2.9c1.7-1.6 2.7-3.9 2.7-6.7z"/><path fill="#fff" d="M9.4 17.3c2.3 0 4.3-.8 5.7-2.1l-2.9-2.3c-.8.5-1.9.8-3 .8-2.2 0-4.1-1.5-4.8-3.6H1.5v2.4c1.4 2.8 4.3 4.8 7.9 4.8z"/><path fill="#fff" d="M4.6 10.1c-.2-.5-.3-1.1-.3-1.7s.1-1.2.3-1.7V4.3H1.5C.9 5.5.5 6.9.5 8.4s.4 2.9 1 4.1l3.1-2.4z"/><path fill="#fff" d="M9.4 3.6c1.2 0 2.3.4 3.2 1.2l2.4-2.4C13.7 1.1 11.7 0 9.4 0 5.8 0 2.9 2 1.5 4.3l3.1 2.4c.7-2.1 2.6-3.6 4.8-3.6z"/></svg> Sign in with Google</button>
+                <div class="divider">or</div>
+                <div style="text-align:center;font-size:0.8rem;color:#aaa;">
+                    <a href="#" id="mobileSignupLink" style="color:#db3900;font-weight:600;">Create Account</a> &nbsp;·&nbsp;
+                    <a href="#" id="mobileForgotLink" style="color:#db3900;font-weight:600;">Forgot Password</a>
+                </div>
+                <div class="home-buttons mt-3">
+                    <a href="https://ictfromabc.com/public-dashboard/papers/al" target="_blank" class="home-btn" style="padding:0.4rem 1rem;font-size:0.75rem;">📄 Past Papers</a>
+                    <a href="https://ictfromabc.com/public-dashboard" target="_blank" class="home-btn home-btn-outline" style="padding:0.4rem 1rem;font-size:0.75rem;">ℹ️ About Us</a>
+                </div>
+                <div class="class-details w-full text-[11px] mt-3">
+                    <strong>📅 Class Days:</strong> Mon, Wed, Fri · 6:30PM<br />
+                    <strong>📍 ICT from ABC</strong> · 071 455 5513
+                </div>
+            </div>
+            <div class="text-center flex flex-col items-center gap-1 mt-4">
+                <p class="font-bold text-xs">Need Help?</p><p class="text-[11px] font-semibold">Phone: 071 455 5513</p>
+                <div class="flex gap-3 mt-2">
+                    <a href="#" class="flex items-center justify-center w-7 h-7 rounded-full bg-red-600 hover:bg-red-700 transition"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg></a>
+                    <a href="#" class="flex items-center justify-center w-7 h-7 rounded-full bg-blue-500 hover:bg-blue-600 transition"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white -ml-0.5"><line x1="22" x2="11" y1="2" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg></a>
+                    <a href="#" class="flex items-center justify-center w-7 h-7 rounded-full bg-blue-700 hover:bg-blue-800 transition"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+                </div>
+                <p class="text-[10px] text-gray-300 mt-3 font-semibold">©2025. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Desktop Auth -->
+        <div class="hidden lg:grid flex-1 grid-cols-2 pr-[150px] relative z-10 h-screen">
+            <div class="relative h-full w-full flex items-center justify-end pr-10">
+                <img src="loginpc.png" alt="Speaker" class="absolute bottom-0 -left-[14%] h-screen max-h-screen w-auto object-contain object-bottom opacity-50 pointer-events-none z-0" />
+                <div class="relative z-10 text-center translate-x-28 -translate-y-12 flex flex-col items-center">
+                    <h1 class="text-5xl font-extrabold tracking-tight mb-1"><span class="text-white">ict</span><span class="text-[#db3900]">from</span><span class="text-white">abc</span></h1>
+                    <div class="relative inline-block mb-3"><p class="text-base text-gray-200 font-medium z-10 relative px-2 font-sinhala">ලංකාවේ විශාලතම තොරතුරු තාක්ෂණික පන්තිය</p><div class="absolute top-1/2 left-0 w-full h-[2px] bg-white/70 z-20"></div></div>
+                    <p class="text-xl font-bold leading-tight font-sinhala">ලංකාවේ වැඩිම A හා B සාමාර්ථ සහිත<br />තොරතුරු තාක්ෂණ පන්තිය</p>
+                </div>
+            </div>
+            <div class="h-full flex flex-col items-center justify-center pl-10 relative z-20">
+                <div class="login-card-modern">
+                    <h2 style="color:white;font-size:2rem;font-weight:800;text-align:center;margin-bottom:0.2rem;"><span style="color:#db3900;">ict</span>fromabc</h2>
+                    <p style="text-align:center;color:#aaa;font-size:0.9rem;margin-bottom:1.5rem;">Student Login</p>
+                    <input type="text" id="desktopPhoneInput" placeholder="Phone Number" />
+                    <input type="password" id="desktopPasswordInput" placeholder="Password" />
+                    <button id="desktopLoginBtn" class="home-btn home-btn-success w-full justify-center">🔐 Login</button>
+                    <button id="desktopGoogleBtn" class="btn-google w-full"><svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M17.64 9.2c0-.6-.1-1.2-.2-1.8h-8v3.4h4.9c-.2 1.2-.9 2.1-1.8 2.8v2.3h2.9c1.7-1.6 2.7-3.9 2.7-6.7z"/><path fill="#fff" d="M9.4 17.3c2.3 0 4.3-.8 5.7-2.1l-2.9-2.3c-.8.5-1.9.8-3 .8-2.2 0-4.1-1.5-4.8-3.6H1.5v2.4c1.4 2.8 4.3 4.8 7.9 4.8z"/><path fill="#fff" d="M4.6 10.1c-.2-.5-.3-1.1-.3-1.7s.1-1.2.3-1.7V4.3H1.5C.9 5.5.5 6.9.5 8.4s.4 2.9 1 4.1l3.1-2.4z"/><path fill="#fff" d="M9.4 3.6c1.2 0 2.3.4 3.2 1.2l2.4-2.4C13.7 1.1 11.7 0 9.4 0 5.8 0 2.9 2 1.5 4.3l3.1 2.4c.7-2.1 2.6-3.6 4.8-3.6z"/></svg> Sign in with Google</button>
+                    <div class="divider">or</div>
+                    <div style="text-align:center;font-size:0.8rem;color:#aaa;">
+                        <a href="#" id="desktopSignupLink" style="color:#db3900;font-weight:600;">Create Account</a> &nbsp;·&nbsp;
+                        <a href="#" id="desktopForgotLink" style="color:#db3900;font-weight:600;">Forgot Password</a>
+                    </div>
+                    <div class="home-buttons mt-3">
+                        <a href="https://ictfromabc.com/public-dashboard/papers/al" target="_blank" class="home-btn" style="padding:0.4rem 1rem;font-size:0.75rem;">📄 Past Papers</a>
+                        <a href="https://ictfromabc.com/public-dashboard" target="_blank" class="home-btn home-btn-outline" style="padding:0.4rem 1rem;font-size:0.75rem;">ℹ️ About Us</a>
+                    </div>
+                    <div class="class-details w-full text-[11px] mt-3">
+                        <strong>📅 Class Days:</strong> Mon, Wed, Fri · 6:30PM<br />
+                        <strong>📍 ICT from ABC</strong> · 071 455 5513
+                    </div>
+                </div>
+                <div class="mt-8 text-center flex flex-col items-center gap-1.5">
+                    <p class="font-bold text-sm">Need Help?</p><p class="text-xs font-semibold">Phone: 071 455 5513</p>
+                    <div class="flex gap-4 mt-3">
+                        <a href="#" class="flex items-center justify-center w-8 h-8 rounded-full bg-red-600 hover:bg-red-700 transition"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg></a>
+                        <a href="#" class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 transition"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white -ml-0.5"><line x1="22" x2="11" y1="2" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg></a>
+                        <a href="#" class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-700 hover:bg-blue-800 transition"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+                    </div>
+                    <p class="text-[10px] text-white mt-4 font-bold">©2025. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div class="hidden lg:flex fixed right-0 top-0 bottom-0 w-[150px] bg-[#db3900] justify-center items-center z-50 overflow-hidden">
+            <div class="-rotate-90 whitespace-nowrap absolute flex items-center justify-center">
+                <h1 class="text-[13.5vh] font-extrabold tracking-tighter leading-none select-none"><span class="text-black">ict</span><span class="text-white">fromabc</span></h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div id="dashboardScreen" class="dashboard-container hidden">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.5rem;">
+                <span style="color:#db3900;font-weight:800;font-size:1.4rem;">ict</span><span style="color:white;font-weight:800;font-size:1.4rem;">fromabc</span>
+            </div>
+            <div class="section-title">MAIN</div>
+            <a href="#" class="active" data-section="home">🏠 Home</a>
+            <a href="#" data-section="lessons">📚 My Lessons</a>
+            <a href="#" data-section="practical">🛠 Practical Sessions</a>
+            <a href="#" data-section="profile">👤 Profile</a>
+            <div class="section-title">A/L COURSES</div>
+            <a href="#" data-section="al2028">📘 A/L 2028</a>
+            <a href="#" data-section="al2027">📗 A/L 2027</a>
+            <a href="#" data-section="al2026">📕 A/L 2026</a>
+            <a href="#" data-section="alvideo">🎥 AL Video Modules</a>
+            <a href="#" data-section="git">🔗 GIT</a>
+            <div class="section-title">O/L COURSES</div>
+            <a href="#" data-section="ol2025">📙 O/L 2025 (Grade 10)</a>
+            <a href="#" data-section="ol2024">📒 O/L 2024 (Grade 11)</a>
+            <a href="#" data-section="olvideo">🎬 OL Video Modules</a>
+            <a href="#" data-section="tutes">📄 Tutes</a>
+            <div class="section-title">PAYMENTS & SOCIALS</div>
+            <a href="#" data-section="payments">💳 Payments</a>
+            <a href="#" data-section="telegram">📱 Telegram Groups</a>
+            <a href="#" data-section="socials">🌐 Social Media</a>
+            <a href="#" data-section="bank">🏦 Bank Details</a>
+            <div style="margin-top:2rem;border-top:1px solid #222;padding-top:1rem;">
+                <a href="#" id="logoutBtn" style="color:#db3900;">🚪 Logout</a>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Home -->
+            <div id="section-home" class="section-content">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="dashAvatar">U</div>
+                    <div><h2 style="color:white;margin:0;" id="dashName">Student</h2><p style="color:#888;margin:0;" id="dashPhone">+94 7X XXX XXXX</p></div>
+                </div>
+                <div class="grid-2" style="margin-top:1.5rem;">
+                    <div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-value" id="dashBatch">ICT AL 2026</div></div>
+                    <div class="stat-box"><div class="stat-label">Next Class</div><div class="stat-value">Today 6:30PM</div></div>
+                    <div class="stat-box"><div class="stat-label">Progress</div><div class="stat-value">78%</div></div>
+                    <div class="stat-box"><div class="stat-label">Papers Completed</div><div class="stat-value">12/20</div></div>
+                </div>
+                <div class="card"><div class="card-title">📢 Recent Announcements</div><p style="color:#ccc;">New practical session on Networking this Saturday. Check your schedule.</p></div>
+                <div class="card"><div class="card-title">⭐ Testimonials</div>
+                    <div class="testimonial-card"><div class="name">Akindu Thenuka <span class="date">· A/L 2027</span></div><div class="text">ALL IS WELL. WE ARE GETTING HIGH QUALITY SERVICE FROM ICTFROMABC. THIS IS THE BEST, TOP LEVEL ICT CLASS IN SRILANKA.</div></div>
+                    <div class="testimonial-card"><div class="name">Nawodya Prabhashwara <span class="date">· A/L 2026</span></div><div class="text">Enhance your life with this class. Highly recommend ❤️. Also, the best office crew I've ever seen.</div></div>
+                </div>
+            </div>
+            <!-- Other sections -->
+            <div id="section-lessons" class="section-content hidden"><div class="card"><div class="card-title">📚 My Lessons</div><p style="color:#ccc;">Lesson 1: Intro to ICT<br/>Lesson 2: Data Representation<br/>Lesson 3: Logic Gates</p></div></div>
+            <div id="section-practical" class="section-content hidden"><div class="card"><div class="card-title">🛠 Practical Sessions</div><p style="color:#ccc;">Python Programming · Networking · Database Design</p></div></div>
+            <div id="section-al2028" class="section-content hidden"><div class="card"><div class="card-title">📘 A/L 2028</div><p style="color:#ccc;">Module 1: Fundamentals · Module 2: Programming · Module 3: Networks</p></div></div>
+            <div id="section-al2027" class="section-content hidden"><div class="card"><div class="card-title">📗 A/L 2027</div><p style="color:#ccc;">Module 1: Systems · Module 2: Databases · Module 3: Web Dev</p></div></div>
+            <div id="section-al2026" class="section-content hidden"><div class="card"><div class="card-title">📕 A/L 2026</div><p style="color:#ccc;">Revision · Past Papers · Mock Exams</p></div></div>
+            <div id="section-alvideo" class="section-content hidden"><div class="card"><div class="card-title">🎥 AL Video Modules</div><p style="color:#ccc;">Video 1: Number Systems · Video 2: Boolean Algebra</p></div></div>
+            <div id="section-git" class="section-content hidden"><div class="card"><div class="card-title">🔗 GIT</div><p style="color:#ccc;">GitHub Classroom · Repositories · Collaboration</p></div></div>
+            <div id="section-ol2025" class="section-content hidden"><div class="card"><div class="card-title">📙 O/L 2025 (Grade 10)</div><p style="color:#ccc;">Unit 1: Computer Basics · Unit 2: Software</p></div></div>
+            <div id="section-ol2024" class="section-content hidden"><div class="card"><div class="card-title">📒 O/L 2024 (Grade 11)</div><p style="color:#ccc;">Unit 1: Networks · Unit 2: Programming</p></div></div>
+            <div id="section-olvideo" class="section-content hidden"><div class="card"><div class="card-title">🎬 OL Video Modules</div><p style="color:#ccc;">Video 1: Hardware · Video 2: Internet</p></div></div>
+            <div id="section-tutes" class="section-content hidden"><div class="card"><div class="card-title">📄 Tutes</div><p style="color:#ccc;">Tute 1: Binary · Tute 2: HTML · Tute 3: CSS</p></div></div>
+            <div id="section-payments" class="section-content hidden"><div class="card"><div class="card-title">💳 Payments</div><p style="color:#ccc;">Fee: LKR 15,000 · Due: 2026-08-20</p></div></div>
+            <div id="section-telegram" class="section-content hidden"><div class="card"><div class="card-title">📱 Telegram Groups</div><p style="color:#ccc;">A/L 2028 · A/L 2027 · A/L 2026</p></div></div>
+            <div id="section-socials" class="section-content hidden"><div class="card"><div class="card-title">🌐 Social Media</div><p style="color:#ccc;">Facebook · YouTube · Instagram</p></div></div>
+            <div id="section-bank" class="section-content hidden"><div class="card"><div class="card-title">🏦 Bank Account Details</div><p style="color:#ccc;"><strong>B.M.R.C. BANDARANAYAKE</strong><br/>1006 5704 9654 · SAMPATH BANK · KURUNEGALA SUPER BRANCH<br/><br/><strong>B.M.R.C. BANDARANAYAKE</strong><br/>8160 100 221 · COMMERCIAL BANK · KURUNEGALA MAIN BRANCH</p></div></div>
+            <div id="section-profile" class="section-content hidden">
+                <div class="card"><div class="card-title">👤 Profile</div>
+                    <div id="profileDisplay">
+                        <div class="profile-field"><span class="label">Full Name</span><span class="value" id="pFullName">-</span></div>
+                        <div class="profile-field"><span class="label">Phone</span><span class="value" id="pPhone">-</span></div>
+                        <div class="profile-field"><span class="label">Batch</span><span class="value" id="pBatch">-</span></div>
+                    </div>
+                    <button class="btn" id="editProfileBtn">✏️ Edit Profile</button>
+                    <button class="btn btn-outline" id="changePasswordBtn" style="margin-top:0.5rem;">🔐 Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+    <div id="signupModal" class="modal-overlay"><div class="modal-card"><h2>📝 Create Account</h2>
+            <label>Full Name</label><input type="text" id="signupName" />
+            <label>Phone Number</label><input type="text" id="signupPhone" />
+            <label>Password</label><input type="password" id="signupPass" />
+            <button class="home-btn" id="signupBtn">Sign Up</button>
+            <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('signupModal')">✕ close</p>
+    </div></div>
+
+    <div id="forgotModal" class="modal-overlay"><div class="modal-card"><h2>🔑 Forgot Password</h2>
+            <label>Phone Number</label><input type="text" id="forgotPhone" />
+            <button class="home-btn" id="forgotBtn">Send Reset Link</button>
+            <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('forgotModal')">✕ close</p>
+    </div></div>
+
+    <div id="changePassModal" class="modal-overlay"><div class="modal-card"><h2>🔐 Change Password</h2>
+            <label>New Password</label><input type="password" id="newPass" />
+            <button class="home-btn" id="changePassBtn">Update</button>
+            <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('changePassModal')">✕ close</p>
+    </div></div>
+
+    <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Profile</h2>
+            <label>Full Name</label><input type="text" id="editFullName" />
+            <label>Phone Number</label><input type="text" id="editPhone" />
+            <label>Batch</label><input type="text" id="editBatch" placeholder="ICT AL 2026" />
+            <button class="home-btn" id="saveProfileBtn">Save Profile</button>
+            <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('profileModal')">✕ close</p>
+    </div></div>
+
+    <!-- CHATBOT -->
+    <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Chat</button>
+    <div class="chatbot-window" id="chatWindow">
+        <div class="chat-header"><span>🤖 ICT Assistant</span><button id="chatClose">✕</button></div>
+        <div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Hi! Ask me about ICT classes, dates, or past papers.</div></div>
+        <div class="chat-input"><input id="chatInput" placeholder="Type a question..." /><button id="chatSend">Send</button></div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
