@@ -1,4 +1,6 @@
-/* ===== ORIGINAL CSS (condensed) ===== */
+/* ===== style.css - Complete Stylesheet ===== */
+
+/* ===== 1. BASE RESET & UTILITIES ===== */
 *,
 ::before,
 ::after {
@@ -513,11 +515,13 @@ textarea {
     display: none !important;
 }
 
-/* ===== DASHBOARD STYLES ===== */
+/* ===== 2. DASHBOARD STYLES ===== */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
     background: #0a0a0a;
+    position: relative;
+    z-index: 10;
 }
 .sidebar {
     width: 270px;
@@ -529,6 +533,7 @@ textarea {
     height: 100vh;
     position: sticky;
     top: 0;
+    z-index: 20;
 }
 .sidebar a {
     display: block;
@@ -559,6 +564,8 @@ textarea {
     overflow-y: auto;
     height: 100vh;
     background: #0d0d0d;
+    position: relative;
+    z-index: 15;
 }
 .card {
     background: #161616;
@@ -796,7 +803,7 @@ textarea {
     background: #151515;
     border-radius: 32px;
     padding: 2rem;
-    max-width: 480px;
+    max-width: 520px;
     width: 92%;
     border: 1px solid #db3900;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
@@ -855,6 +862,8 @@ textarea {
     color: #eee;
     font-weight: 500;
 }
+
+/* ===== 3. CHATBOT STYLES ===== */
 .chatbot-toggle {
     position: fixed;
     bottom: 24px;
@@ -881,12 +890,12 @@ textarea {
     position: fixed;
     bottom: 100px;
     right: 24px;
-    width: 340px;
-    max-height: 460px;
+    width: 380px;
+    max-height: 520px;
     background: #0d0d0d;
     border-radius: 28px;
     border: 1px solid #db3900;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
     display: none;
     flex-direction: column;
     z-index: 999;
@@ -915,27 +924,66 @@ textarea {
     padding: 16px;
     overflow-y: auto;
     flex: 1;
-    max-height: 300px;
+    max-height: 340px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background: #0a0a0a;
 }
 .chat-msg {
-    background: #1e1e1e;
     padding: 10px 14px;
-    border-radius: 20px;
+    border-radius: 18px;
     color: #eee;
     font-size: 0.9rem;
-    max-width: 85%;
+    max-width: 88%;
+    animation: fadeUp 0.3s ease;
 }
 .chat-msg.bot {
-    background: #db3900;
-    color: white;
+    background: #1e3a2a;
+    color: #a8e6cf;
     align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+.chat-msg.bot .sender {
+    font-size: 0.65rem;
+    color: #6a9b8a;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 .chat-msg.user {
-    background: #2a2a2a;
+    background: #2a1a3a;
+    color: #e6c8ff;
     align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+.chat-msg.user .sender {
+    font-size: 0.65rem;
+    color: #a88ac8;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 3px;
+}
+.chat-msg .time {
+    font-size: 0.55rem;
+    color: #666;
+    margin-top: 4px;
+    text-align: right;
+}
+.chat-msg .quick-reply {
+    display: inline-block;
+    background: #222;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 4px 4px 0 0;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #db3900;
+    border: 1px solid #db3900;
+    transition: 0.2s;
+}
+.chat-msg .quick-reply:hover {
+    background: #db3900;
+    color: white;
 }
 .chat-input {
     display: flex;
@@ -952,16 +1000,26 @@ textarea {
     padding: 10px 16px;
     color: white;
     outline: none;
+    font-size: 0.9rem;
+}
+.chat-input input::placeholder {
+    color: #555;
 }
 .chat-input button {
     background: #db3900;
     border: none;
     border-radius: 40px;
-    padding: 8px 16px;
+    padding: 10px 18px;
     color: white;
     font-weight: 700;
     cursor: pointer;
+    transition: 0.2s;
 }
+.chat-input button:hover {
+    background: #ff4d1a;
+}
+
+/* ===== 4. ANIMATIONS ===== */
 .fade-in {
     animation: fadeUp 0.6s ease forwards;
     opacity: 0;
@@ -1010,6 +1068,208 @@ textarea {
 .btn-loading {
     opacity: 0.7;
     pointer-events: none;
+}
+
+/* ===== 5. LIVE ABC WALLPAPER ===== */
+.abc-wallpaper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.07;
+}
+.abc-wallpaper span {
+    position: absolute;
+    font-weight: 900;
+    color: #db3900;
+    animation: floatAbc 25s infinite linear;
+    white-space: nowrap;
+    user-select: none;
+    text-shadow: 0 0 30px rgba(219, 57, 0, 0.3);
+}
+.abc-wallpaper span:nth-child(1) {
+    top: 5%;
+    left: -5%;
+    font-size: 12rem;
+    animation-duration: 28s;
+    opacity: 0.6;
+}
+.abc-wallpaper span:nth-child(2) {
+    top: 30%;
+    right: -5%;
+    font-size: 16rem;
+    animation-duration: 22s;
+    animation-delay: -6s;
+    opacity: 0.5;
+}
+.abc-wallpaper span:nth-child(3) {
+    bottom: 15%;
+    left: 15%;
+    font-size: 14rem;
+    animation-duration: 30s;
+    animation-delay: -12s;
+    opacity: 0.4;
+}
+.abc-wallpaper span:nth-child(4) {
+    top: 55%;
+    left: 40%;
+    font-size: 10rem;
+    animation-duration: 24s;
+    animation-delay: -18s;
+    opacity: 0.5;
+}
+.abc-wallpaper span:nth-child(5) {
+    bottom: 5%;
+    right: 20%;
+    font-size: 13rem;
+    animation-duration: 26s;
+    animation-delay: -9s;
+    opacity: 0.4;
+}
+.abc-wallpaper span:nth-child(6) {
+    top: 15%;
+    left: 55%;
+    font-size: 8rem;
+    animation-duration: 32s;
+    animation-delay: -3s;
+    opacity: 0.3;
+}
+.abc-wallpaper span:nth-child(7) {
+    bottom: 40%;
+    right: 10%;
+    font-size: 9rem;
+    animation-duration: 20s;
+    animation-delay: -15s;
+    opacity: 0.4;
+}
+@keyframes floatAbc {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    20% {
+        transform: translate(60px, -30px) rotate(3deg) scale(1.05);
+    }
+    40% {
+        transform: translate(-40px, 50px) rotate(-2deg) scale(0.95);
+    }
+    60% {
+        transform: translate(40px, -20px) rotate(4deg) scale(1.08);
+    }
+    80% {
+        transform: translate(-20px, 40px) rotate(-3deg) scale(0.92);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+}
+
+/* ===== 6. BEAUTIFUL FORGOT PASSWORD MODAL ===== */
+.forgot-modal .modal-card {
+    background: linear-gradient(145deg, #1a0a0a, #0d0d0d);
+    border: 2px solid #db3900;
+    box-shadow: 0 0 60px rgba(219, 57, 0, 0.2);
+    max-width: 480px;
+}
+.forgot-modal .modal-card h2 {
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(90deg, #db3900, #ff6b3d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.forgot-modal .modal-card .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    -webkit-text-fill-color: #888;
+}
+.forgot-modal .modal-card .otp-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+.forgot-modal .modal-card .otp-input-group input {
+    flex: 1;
+}
+.forgot-modal .modal-card .otp-input-group button {
+    flex-shrink: 0;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #db3900, #ff4d1a);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.forgot-modal .modal-card .otp-input-group button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(219, 57, 0, 0.4);
+}
+.forgot-modal .modal-card .otp-timer {
+    text-align: center;
+    color: #ff6b3d;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(219, 57, 0, 0.1);
+    border-radius: 12px;
+    border: 1px dashed #db3900;
+}
+.forgot-modal .modal-card .otp-status {
+    text-align: center;
+    color: #4caf50;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin: 0.3rem 0;
+}
+.forgot-modal .modal-card .reset-btn {
+    background: linear-gradient(135deg, #0a8f3c, #0cb04a);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 0.9rem;
+    border-radius: 40px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+.forgot-modal .modal-card .reset-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(10, 143, 60, 0.4);
+}
+.forgot-modal .modal-card .close-btn {
+    color: #888;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+.forgot-modal .modal-card .close-btn:hover {
+    color: white;
+}
+.forgot-modal .modal-card .otp-verified {
+    color: #4caf50;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.3rem;
+    background: rgba(76, 175, 80, 0.15);
+    border-radius: 12px;
+    border: 1px solid #4caf50;
+    margin: 0.3rem 0;
+}
+.otp-input-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 #authScreen.hidden {
     display: none !important;
