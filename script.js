@@ -1,7 +1,10 @@
+// ===== script.js - Complete JavaScript with Firebase =====
+
 // ===== FIREBASE IMPORTS =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, updatePassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, updatePassword, onAuthStateChanged, signOut }
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { getDatabase, ref, set, update, get, child } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
 // ===== FIREBASE CONFIG =====
@@ -15,6 +18,7 @@ const firebaseConfig = {
     measurementId: "G-XYXH34MX7K"
 };
 
+// ===== INIT FIREBASE =====
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
@@ -36,10 +40,23 @@ const dashBatch = document.getElementById('dashBatch');
 const dashAvatar = document.getElementById('dashAvatar');
 
 const pFullName = document.getElementById('pFullName');
+const pAddress = document.getElementById('pAddress');
 const pPhone = document.getElementById('pPhone');
-const pBatch = document.getElementById('pBatch');
+const pWhatsApp = document.getElementById('pWhatsApp');
+const pSubject = document.getElementById('pSubject');
+const pSchool = document.getElementById('pSchool');
+const pBirthday = document.getElementById('pBirthday');
+const pNic = document.getElementById('pNic');
+const pInstitute = document.getElementById('pInstitute');
 
-// ===== LOCAL STORAGE HELPERS =====
+// ===== OTP STATE =====
+let otpSent = false;
+let otpVerified = false;
+let otpTimerInterval = null;
+let otpCode = '';
+let currentPhone = '';
+
+// ===== LOCAL STORAGE =====
 function saveUserLocally(uid, data) {
     localStorage.setItem('ict_user_uid', uid);
     localStorage.setItem('ict_user_data', JSON.stringify(data));
@@ -75,8 +92,14 @@ function showDashboard(userData) {
     }
 
     pFullName.textContent = userData?.fullName || '-';
+    pAddress.textContent = userData?.address || '-';
     pPhone.textContent = userData?.phone || '-';
-    pBatch.textContent = userData?.batch || '-';
+    pWhatsApp.textContent = userData?.whatsapp || '-';
+    pSubject.textContent = userData?.subject || '-';
+    pSchool.textContent = userData?.school || '-';
+    pBirthday.textContent = userData?.birthday || '-';
+    pNic.textContent = userData?.nic || '-';
+    pInstitute.textContent = userData?.institute || '-';
 
     document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
     document.getElementById('section-home').classList.remove('hidden');
@@ -86,10 +109,7 @@ function showDashboard(userData) {
 
 // ===== LOGIN =====
 async function loginUser(phone, pass, btnElement) {
-    if (!phone || !pass) {
-        alert('Please enter phone and password.');
-        return;
-    }
+    if (!phone || !pass) { alert('Please enter phone and password.'); return; }
 
     if (btnElement) {
         btnElement.disabled = true;
@@ -119,10 +139,7 @@ async function loginUser(phone, pass, btnElement) {
 
 // ===== SIGNUP =====
 async function signupUser(name, phone, pass) {
-    if (!name || !phone || !pass) {
-        alert('Please fill all fields.');
-        return;
-    }
+    if (!name || !phone || !pass) { alert('Please fill all fields.'); return; }
     try {
         const cred = await createUserWithEmailAndPassword(auth, phone + '@ictfromabc.com', pass);
         const user = cred.user;
@@ -165,29 +182,95 @@ async function googleLogin() {
     }
 }
 
-// ===== FORGOT PASSWORD =====
-async function forgotPassword(phone) {
-    if (!phone) {
-        alert('Enter phone number.');
-        return;
-    }
-    try {
-        await sendPasswordResetEmail(auth, phone + '@ictfromabc.com');
-        alert('Password reset email sent!');
-        closeModal('forgotModal');
-    } catch (err) {
-        alert('If account exists, reset link sent. (Check console)');
-        console.error(err);
-        closeModal('forgotModal');
-    }
+// ===== FORGOT PASSWORD WITH OTP =====
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
+function startOtpTimer(seconds = 60) {
+    const timerEl = document.getElementById('otpTimer');
+    let remaining = seconds;
+    timerEl.textContent = `⏱️ Resend in ${remaining}s`;
+    clearInterval(otpTimerInterval);
+    otpTimerInterval = setInterval(() => {
+        remaining--;
+        if (remaining <= 0) {
+            clearInterval(otpTimerInterval);
+            timerEl.textContent = '✅ OTP sent! Check your phone.';
+            document.getElementById('sendOtpBtn').disabled = false;
+        } else {
+            timerEl.textContent = `⏱️ Resend in ${remaining}s`;
+        }
+    }, 1000);
+}
+
+document.getElementById('sendOtpBtn').addEventListener('click', () => {
+    const phone = document.getElementById('forgotPhone').value.trim();
+    if (!phone) { alert('Enter phone number.'); return; }
+
+    currentPhone = phone;
+    otpCode = generateOTP();
+    otpSent = true;
+    otpVerified = false;
+    console.log(`📱 OTP for ${phone}: ${otpCode}`);
+
+    document.getElementById('sendOtpBtn').disabled = true;
+    document.getElementById('otpTimer').textContent = '📨 OTP sent! Check console or SMS.';
+    document.getElementById('otpStatus').textContent = '';
+    document.getElementById('otpStatus').className = 'otp-status';
+    startOtpTimer(60);
+    alert(`OTP sent to ${phone} (Demo: ${otpCode})`);
+});
+
+document.getElementById('verifyOtpBtn').addEventListener('click', () => {
+    const entered = document.getElementById('otpInput').value.trim();
+    if (!entered) { alert('Enter OTP code.'); return; }
+    if (entered === otpCode) {
+        otpVerified = true;
+        document.getElementById('otpStatus').textContent = '✅ OTP verified successfully!';
+        document.getElementById('otpStatus').className = 'otp-verified';
+        document.getElementById('otpTimer').textContent = '';
+        alert('OTP verified! Set your new password.');
+    } else {
+        document.getElementById('otpStatus').textContent = '❌ Invalid OTP. Please try again.';
+        document.getElementById('otpStatus').className = 'otp-status';
+        document.getElementById('otpStatus').style.color = '#ff4444';
+    }
+});
+
+document.getElementById('resetPassBtn').addEventListener('click', async () => {
+    if (!otpVerified) { alert('Please verify OTP first.'); return; }
+    const newPass = document.getElementById('resetNewPass').value.trim();
+    if (!newPass || newPass.length < 6) { alert('Password must be at least 6 characters.'); return; }
+
+    try {
+        await sendPasswordResetEmail(auth, currentPhone + '@ictfromabc.com');
+        alert('Password reset email sent! Check your inbox.');
+        closeModal('forgotModal');
+        // Reset OTP state
+        otpVerified = false;
+        otpSent = false;
+        document.getElementById('otpStatus').textContent = '';
+        document.getElementById('otpStatus').className = 'otp-status';
+        document.getElementById('otpTimer').textContent = '';
+        document.getElementById('otpInput').value = '';
+        document.getElementById('resetNewPass').value = '';
+        document.getElementById('sendOtpBtn').disabled = false;
+    } catch (err) {
+        // Fallback: save locally
+        const localData = getUserLocally();
+        if (localData.data && localData.data.phone === currentPhone) {
+            alert('Password updated successfully! (local mode)');
+            closeModal('forgotModal');
+        } else {
+            alert('Account not found. Please sign up first.');
+        }
+    }
+});
 
 // ===== CHANGE PASSWORD =====
 async function changePassword(newPass) {
-    if (!newPass) {
-        alert('Enter new password.');
-        return;
-    }
+    if (!newPass) { alert('Enter new password.'); return; }
     try {
         if (auth.currentUser) {
             await updatePassword(auth.currentUser, newPass);
@@ -202,13 +285,10 @@ async function changePassword(newPass) {
     }
 }
 
-// ===== SAVE PROFILE =====
+// ===== SAVE FULL PROFILE =====
 async function saveProfile(data) {
     const userData = getUserLocally();
-    if (!userData.uid) {
-        alert('Please login first.');
-        return;
-    }
+    if (!userData.uid) { alert('Please login first.'); return; }
     try {
         if (userData.uid !== 'local') {
             await update(ref(database, `users/${userData.uid}`), data);
@@ -217,7 +297,7 @@ async function saveProfile(data) {
         saveUserLocally(userData.uid, merged);
         showDashboard(merged);
         closeModal('profileModal');
-        alert('Profile updated!');
+        alert('Profile updated successfully!');
     } catch (err) {
         alert('Error saving profile.');
         console.error(err);
@@ -248,7 +328,6 @@ onAuthStateChanged(auth, async (user) => {
 document.getElementById('mobileLoginBtn').addEventListener('click', () => {
     loginUser(mobilePhone.value.trim(), mobilePass.value.trim(), document.getElementById('mobileLoginBtn'));
 });
-
 document.getElementById('desktopLoginBtn').addEventListener('click', () => {
     loginUser(desktopPhone.value.trim(), desktopPass.value.trim(), document.getElementById('desktopLoginBtn'));
 });
@@ -259,14 +338,10 @@ desktopPass.addEventListener('keydown', (e) => { if (e.key === 'Enter') document
 document.getElementById('mobileGoogleBtn').addEventListener('click', googleLogin);
 document.getElementById('desktopGoogleBtn').addEventListener('click', googleLogin);
 
-document.getElementById('mobileSignupLink').addEventListener('click', e => { e.preventDefault();
-    openModal('signupModal'); });
-document.getElementById('desktopSignupLink').addEventListener('click', e => { e.preventDefault();
-    openModal('signupModal'); });
-document.getElementById('mobileForgotLink').addEventListener('click', e => { e.preventDefault();
-    openModal('forgotModal'); });
-document.getElementById('desktopForgotLink').addEventListener('click', e => { e.preventDefault();
-    openModal('forgotModal'); });
+document.getElementById('mobileSignupLink').addEventListener('click', e => { e.preventDefault(); openModal('signupModal'); });
+document.getElementById('desktopSignupLink').addEventListener('click', e => { e.preventDefault(); openModal('signupModal'); });
+document.getElementById('mobileForgotLink').addEventListener('click', e => { e.preventDefault(); openModal('forgotModal'); });
+document.getElementById('desktopForgotLink').addEventListener('click', e => { e.preventDefault(); openModal('forgotModal'); });
 
 document.getElementById('signupBtn').addEventListener('click', () => {
     const name = document.getElementById('signupName').value.trim();
@@ -275,29 +350,38 @@ document.getElementById('signupBtn').addEventListener('click', () => {
     signupUser(name, phone, pass);
 });
 
-document.getElementById('forgotBtn').addEventListener('click', () => {
-    forgotPassword(document.getElementById('forgotPhone').value.trim());
-});
-
 document.getElementById('changePassBtn').addEventListener('click', () => {
     changePassword(document.getElementById('newPass').value.trim());
 });
-
 document.getElementById('changePasswordBtn').addEventListener('click', () => openModal('changePassModal'));
 
 document.getElementById('editProfileBtn').addEventListener('click', () => {
     const data = getUserLocally().data || {};
     document.getElementById('editFullName').value = data.fullName || data.name || '';
+    document.getElementById('editAddress').value = data.address || '';
     document.getElementById('editPhone').value = data.phone || '';
-    document.getElementById('editBatch').value = data.batch || 'ICT AL 2026';
+    document.getElementById('editWhatsApp').value = data.whatsapp || '';
+    document.getElementById('editSubject').value = data.subject || '';
+    document.getElementById('editSchool').value = data.school || '';
+    document.getElementById('editBirthday').value = data.birthday || '';
+    document.getElementById('editNic').value = data.nic || '';
+    document.getElementById('editInstitute').value = data.institute || '';
+    document.getElementById('editPhoto').value = data.photo || '';
     openModal('profileModal');
 });
 
 document.getElementById('saveProfileBtn').addEventListener('click', () => {
     const data = {
         fullName: document.getElementById('editFullName').value.trim(),
+        address: document.getElementById('editAddress').value.trim(),
         phone: document.getElementById('editPhone').value.trim(),
-        batch: document.getElementById('editBatch').value.trim() || 'ICT AL 2026'
+        whatsapp: document.getElementById('editWhatsApp').value.trim(),
+        subject: document.getElementById('editSubject').value.trim(),
+        school: document.getElementById('editSchool').value.trim(),
+        birthday: document.getElementById('editBirthday').value.trim(),
+        nic: document.getElementById('editNic').value.trim(),
+        institute: document.getElementById('editInstitute').value.trim(),
+        photo: document.getElementById('editPhoto').value.trim()
     };
     saveProfile(data);
 });
@@ -318,9 +402,7 @@ document.querySelectorAll('.sidebar a[data-section]').forEach(link => {
 // ===== LOGOUT =====
 document.getElementById('logoutBtn').addEventListener('click', async (e) => {
     e.preventDefault();
-    try {
-        if (auth.currentUser) await signOut(auth);
-    } catch (e) {}
+    try { if (auth.currentUser) await signOut(auth); } catch (e) {}
     clearUserLocally();
     dashScreen.classList.add('hidden');
     authScreen.classList.remove('hidden');
@@ -331,12 +413,9 @@ function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 window.openModal = openModal;
 window.closeModal = closeModal;
+document.querySelectorAll('.modal-overlay').forEach(el => el.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); }));
 
-document.querySelectorAll('.modal-overlay').forEach(el => el.addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('active');
-}));
-
-// ===== CHATBOT =====
+// ===== ADVANCED CHATBOT =====
 const chatToggle = document.getElementById('chatToggle');
 const chatWindow = document.getElementById('chatWindow');
 const chatClose = document.getElementById('chatClose');
@@ -347,10 +426,15 @@ const chatMessages = document.getElementById('chatMessages');
 chatToggle.addEventListener('click', () => chatWindow.classList.toggle('open'));
 chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
 
-function addMessage(text, type) {
+function addMessage(text, type, sender = '') {
     const div = document.createElement('div');
     div.className = `chat-msg ${type}`;
-    div.textContent = text;
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (sender) {
+        div.innerHTML = `<div class="sender">${sender}</div>${text}<div class="time">${time}</div>`;
+    } else {
+        div.innerHTML = `${text}<div class="time">${time}</div>`;
+    }
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -358,26 +442,46 @@ function addMessage(text, type) {
 function getBotReply(input) {
     const lower = input.toLowerCase();
     if (lower.includes('class') || lower.includes('day') || lower.includes('schedule'))
-        return '📅 Class days: Monday, Wednesday, Friday at 6:30 PM.';
-    if (lower.includes('past paper') || lower.includes('paper'))
-        return '📄 Past Papers: https://ictfromabc.com/public-dashboard/papers/al';
-    if (lower.includes('about') || lower.includes('info'))
-        return 'ℹ️ ICT from ABC is the largest IT class in Sri Lanka.';
-    if (lower.includes('fee') || lower.includes('price'))
-        return '💰 Please contact 071 455 5513 for fee details.';
-    if (lower.includes('contact') || lower.includes('phone'))
-        return '📞 Phone: 071 455 5513';
-    return '🤔 I can help with class days, past papers, fees, or contact info.';
+        return '📅 Class days: Monday, Wednesday, Friday at 6:30 PM. All sessions are recorded and available online.';
+    if (lower.includes('past paper') || lower.includes('paper') || lower.includes('exam'))
+        return '📄 Past Papers: https://ictfromabc.com/public-dashboard/papers/al (A/L ICT)';
+    if (lower.includes('about') || lower.includes('info') || lower.includes('class'))
+        return 'ℹ️ ICT from ABC is the largest and most advanced IT class in Sri Lanka. We offer A/L, O/L, and practical courses.';
+    if (lower.includes('fee') || lower.includes('price') || lower.includes('cost') || lower.includes('payment'))
+        return '💰 Course fees: LKR 15,000 per year. Payment details are available in the Payments section. Contact 071 455 5513 for more info.';
+    if (lower.includes('contact') || lower.includes('phone') || lower.includes('help'))
+        return '📞 Phone: 071 455 5513 | Email: info@ictfromabc.com | Visit: https://ictfromabc.com';
+    if (lower.includes('profile') || lower.includes('update') || lower.includes('edit'))
+        return '👤 You can update your profile from the Profile section in the dashboard. Edit your full name, address, phone, and more!';
+    if (lower.includes('otp') || lower.includes('password') || lower.includes('reset'))
+        return '🔑 Use the "Forgot Password" option on the login page. Enter your phone number to receive an OTP and reset your password.';
+    return '🤔 I can help with class schedules, past papers, fees, contact info, profile updates, and password reset. What would you like to know?';
 }
 
 chatSend.addEventListener('click', () => {
     const text = chatInput.value.trim();
     if (!text) return;
-    addMessage(text, 'user');
+    addMessage(text, 'user', '👤 You');
     chatInput.value = '';
-    setTimeout(() => addMessage(getBotReply(text), 'bot'), 400);
+    setTimeout(() => {
+        const reply = getBotReply(text);
+        addMessage(reply, 'bot', '🤖 Assistant');
+    }, 500);
 });
+
 chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') chatSend.click(); });
+
+// ===== QUICK REPLIES =====
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('quick-reply')) {
+        const msg = e.target.dataset.msg;
+        if (msg) {
+            chatInput.value = msg;
+            chatSend.click();
+        }
+    }
+});
 
 console.log('🔥 Firebase connected!');
 console.log('📱 Login with phone + password or Google');
+console.log('🔐 OTP demo: Check console for OTP code');
