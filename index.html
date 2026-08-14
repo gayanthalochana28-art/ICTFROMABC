@@ -10,6 +10,9 @@
     <link rel="preload" href="/_next/static/immutable/media/8e6fa89aa22d24ec-s.p.1bg6trwi21i5q.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/a218039a3287bcfd-s.p.17e3l4txdrufi.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/e2334d715941921e-s.p.2g9xiodaln20i.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="loginmb.png" as="image" />
+    <link rel="preload" href="loginpc.png" as="image" />
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css" />
     <!-- Firebase SDK (modular) -->
     <script type="importmap">
@@ -24,8 +27,20 @@
     </script>
 </head>
 <body>
+
+    <!-- ===== LIVE ABC WALLPAPER ===== -->
+    <div class="abc-wallpaper">
+        <span>ICT</span>
+        <span>from</span>
+        <span>ABC</span>
+        <span>ICT</span>
+        <span>ABC</span>
+        <span>from</span>
+        <span>ICT</span>
+    </div>
+
     <!-- ===== AUTH SCREEN ===== -->
-    <div id="authScreen" class="min-h-screen bg-black flex flex-col lg:flex-row relative overflow-x-hidden text-white font-sans">
+    <div id="authScreen" class="min-h-screen bg-black flex flex-col lg:flex-row relative overflow-x-hidden text-white font-sans" style="position:relative;z-index:10;">
         <!-- Mobile Auth -->
         <div class="flex lg:hidden flex-col items-center w-full min-h-screen px-4 pt-4 pb-6 z-10">
             <div class="relative w-full max-w-[440px] min-h-[360px] flex flex-col justify-end items-center mb-2 pt-4">
@@ -186,12 +201,19 @@
             <div id="section-telegram" class="section-content hidden"><div class="card"><div class="card-title">📱 Telegram Groups</div><p style="color:#ccc;">A/L 2028 · A/L 2027 · A/L 2026</p></div></div>
             <div id="section-socials" class="section-content hidden"><div class="card"><div class="card-title">🌐 Social Media</div><p style="color:#ccc;">Facebook · YouTube · Instagram</p></div></div>
             <div id="section-bank" class="section-content hidden"><div class="card"><div class="card-title">🏦 Bank Account Details</div><p style="color:#ccc;"><strong>B.M.R.C. BANDARANAYAKE</strong><br/>1006 5704 9654 · SAMPATH BANK · KURUNEGALA SUPER BRANCH<br/><br/><strong>B.M.R.C. BANDARANAYAKE</strong><br/>8160 100 221 · COMMERCIAL BANK · KURUNEGALA MAIN BRANCH</p></div></div>
+            <!-- Profile with full fields -->
             <div id="section-profile" class="section-content hidden">
-                <div class="card"><div class="card-title">👤 Profile</div>
+                <div class="card"><div class="card-title">👤 Complete Profile</div>
                     <div id="profileDisplay">
                         <div class="profile-field"><span class="label">Full Name</span><span class="value" id="pFullName">-</span></div>
+                        <div class="profile-field"><span class="label">Address</span><span class="value" id="pAddress">-</span></div>
                         <div class="profile-field"><span class="label">Phone</span><span class="value" id="pPhone">-</span></div>
-                        <div class="profile-field"><span class="label">Batch</span><span class="value" id="pBatch">-</span></div>
+                        <div class="profile-field"><span class="label">WhatsApp</span><span class="value" id="pWhatsApp">-</span></div>
+                        <div class="profile-field"><span class="label">A/L Subject</span><span class="value" id="pSubject">-</span></div>
+                        <div class="profile-field"><span class="label">School</span><span class="value" id="pSchool">-</span></div>
+                        <div class="profile-field"><span class="label">Birthday</span><span class="value" id="pBirthday">-</span></div>
+                        <div class="profile-field"><span class="label">NIC</span><span class="value" id="pNic">-</span></div>
+                        <div class="profile-field"><span class="label">Institute</span><span class="value" id="pInstitute">-</span></div>
                     </div>
                     <button class="btn" id="editProfileBtn">✏️ Edit Profile</button>
                     <button class="btn btn-outline" id="changePasswordBtn" style="margin-top:0.5rem;">🔐 Change Password</button>
@@ -209,11 +231,29 @@
             <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('signupModal')">✕ close</p>
     </div></div>
 
-    <div id="forgotModal" class="modal-overlay"><div class="modal-card"><h2>🔑 Forgot Password</h2>
-            <label>Phone Number</label><input type="text" id="forgotPhone" />
-            <button class="home-btn" id="forgotBtn">Send Reset Link</button>
-            <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('forgotModal')">✕ close</p>
-    </div></div>
+    <!-- Forgot Password with OTP -->
+    <div id="forgotModal" class="modal-overlay forgot-modal">
+        <div class="modal-card">
+            <h2>🔑 Reset Password</h2>
+            <p class="subtitle">Enter your phone number to receive an OTP</p>
+            <label>Phone Number</label>
+            <div class="otp-input-group">
+                <input type="text" id="forgotPhone" placeholder="07X XXX XXXX" />
+                <button id="sendOtpBtn">Send OTP</button>
+            </div>
+            <div id="otpTimer" class="otp-timer"></div>
+            <label>Enter OTP</label>
+            <div class="otp-input-group">
+                <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6" />
+                <button id="verifyOtpBtn">Verify</button>
+            </div>
+            <div id="otpStatus" class="otp-status"></div>
+            <label>New Password</label>
+            <input type="password" id="resetNewPass" placeholder="Enter new password (min 6 chars)" />
+            <button class="reset-btn" id="resetPassBtn">🔄 Reset Password</button>
+            <div class="close-btn" onclick="closeModal('forgotModal')">✕ close</div>
+        </div>
+    </div>
 
     <div id="changePassModal" class="modal-overlay"><div class="modal-card"><h2>🔐 Change Password</h2>
             <label>New Password</label><input type="password" id="newPass" />
@@ -221,22 +261,48 @@
             <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('changePassModal')">✕ close</p>
     </div></div>
 
-    <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Profile</h2>
+    <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Full Profile</h2>
             <label>Full Name</label><input type="text" id="editFullName" />
+            <label>Address</label><input type="text" id="editAddress" />
             <label>Phone Number</label><input type="text" id="editPhone" />
-            <label>Batch</label><input type="text" id="editBatch" placeholder="ICT AL 2026" />
+            <label>WhatsApp Number</label><input type="text" id="editWhatsApp" />
+            <label>A/L Subject</label><input type="text" id="editSubject" placeholder="e.g. ICT, Physics" />
+            <label>School</label><input type="text" id="editSchool" />
+            <label>Birthday</label><input type="date" id="editBirthday" />
+            <label>NIC Number</label><input type="text" id="editNic" />
+            <label>Institute</label><input type="text" id="editInstitute" />
+            <label>Profile Photo URL</label><input type="text" id="editPhoto" placeholder="https://example.com/photo.jpg" />
             <button class="home-btn" id="saveProfileBtn">Save Profile</button>
             <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('profileModal')">✕ close</p>
     </div></div>
 
-    <!-- CHATBOT -->
-    <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Chat</button>
+    <!-- ===== CHATBOT ===== -->
+    <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Assistant</button>
     <div class="chatbot-window" id="chatWindow">
-        <div class="chat-header"><span>🤖 ICT Assistant</span><button id="chatClose">✕</button></div>
-        <div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Hi! Ask me about ICT classes, dates, or past papers.</div></div>
-        <div class="chat-input"><input id="chatInput" placeholder="Type a question..." /><button id="chatSend">Send</button></div>
+        <div class="chat-header">
+            <span>🤖 ICT Assistant</span>
+            <button id="chatClose">✕</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg bot">
+                <div class="sender">🤖 Assistant</div>
+                👋 Hi! I'm your ICT assistant. Ask me about:
+                <div style="margin-top:6px;">
+                    <span class="quick-reply" data-msg="Class schedule">📅 Schedule</span>
+                    <span class="quick-reply" data-msg="Past papers">📄 Papers</span>
+                    <span class="quick-reply" data-msg="Fees">💰 Fees</span>
+                    <span class="quick-reply" data-msg="Contact info">📞 Contact</span>
+                </div>
+                <div class="time">Just now</div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input id="chatInput" placeholder="Type your question..." />
+            <button id="chatSend">Send</button>
+        </div>
     </div>
 
+    <!-- External JavaScript -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
