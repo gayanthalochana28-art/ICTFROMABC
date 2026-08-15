@@ -797,7 +797,7 @@ chatToggle.addEventListener('click', () => {
         // Auto-greet with user name if available
         const userData = getUserLocally();
         if (userData.data?.fullName) {
-            addMessage(`👋 Welcome back, ${userData.data.fullName}! I'm your ICT assistant. How can I help?`, 'bot', '🤖 Assistant');
+            addMessage(`👋 Welcome back, I'm your ICT assistant. How can I help?`, 'bot', '🤖 Assistant');
         }
     }
 });
