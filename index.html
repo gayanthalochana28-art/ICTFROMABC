@@ -1,15 +1,9 @@
-<!-- ============================================================
-     FILE: index.html
-     ============================================================ -->
 <!DOCTYPE html>
 <html lang="en" class="poppins_e1585a45-module__UP0NmG__variable h-full antialiased">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>ictfromabc · Student Portal</title>
-    <!-- Favicon / Website DP -->
-    <link rel="icon" href="loginmb.png" type="image/png" />
-    <link rel="apple-touch-icon" href="loginpc.png" />
     <!-- Font preloads -->
     <link rel="preload" href="/_next/static/immutable/media/47fe1b7cd6e6ed85-s.p.1n2oi-d4a-xww.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/829ba4228c966254-s.p.0zvxjg5nywxta.woff2" as="font" crossorigin="" type="font/woff2" />
@@ -36,6 +30,14 @@
 </head>
 <body>
 
+    <!-- ===== NOTIFICATION BAR ===== -->
+    <div id="notificationBar" class="notification-bar">
+        <div class="marquee" id="notifMarquee">
+            <span>📢 Loading notifications...</span>
+        </div>
+        <button class="close-notif" id="closeNotifBtn" title="Close notifications">✕</button>
+    </div>
+
     <!-- ===== LIVE ABC WALLPAPER ===== -->
     <div class="abc-wallpaper">
         <span>ICT</span>
@@ -50,25 +52,16 @@
     <!-- ===== LOGIN SCREEN ===== -->
     <div id="authScreen" class="login-wrapper">
         <div class="login-container">
-            <!-- Left Side: Image -->
             <div class="login-image">
                 <img src="loginmb.png" alt="Student" />
                 <div class="logo-overlay">
                     <img src="logo.png" alt="ictfromabc" />
                 </div>
             </div>
-            <!-- Right Side: Form -->
             <div class="login-form">
-                <div class="logo-mobile">
-                    <span>ict</span><span>fromabc</span>
-                </div>
-                <div class="subtitle-sinhala">
-                    ලංකාවේ විශාලතම තොරතුරු තාක්ෂණික පන්තිය
-                </div>
-                <div class="subtitle-english">
-                    ලංකාවේ වැඩිම A හා B සාමාර්ථ සහිත තොරතුරු තාක්ෂණ පන්තිය
-                </div>
-
+                <div class="logo-mobile"><span>ict</span><span>fromabc</span></div>
+                <div class="subtitle-sinhala">ලංකාවේ විශාලතම තොරතුරු තාක්ෂණික පන්තිය</div>
+                <div class="subtitle-english">ලංකාවේ වැඩිම A හා B සාමාර්ථ සහිත තොරතුරු තාක්ෂණ පන්තිය</div>
                 <div class="input-group">
                     <label>Enter Your Phone Number</label>
                     <input type="text" id="loginPhoneInput" placeholder="07X XXX XXXX" />
@@ -77,22 +70,17 @@
                     <label>Password</label>
                     <input type="password" id="loginPasswordInput" placeholder="Enter your password" />
                 </div>
-
                 <button id="loginBtn" class="login-btn">🔐 Login</button>
-
                 <div class="divider">or</div>
-
                 <button id="googleBtn" class="google-btn">
                     <svg viewBox="0 0 18 18"><path fill="#fff" d="M17.64 9.2c0-.6-.1-1.2-.2-1.8h-8v3.4h4.9c-.2 1.2-.9 2.1-1.8 2.8v2.3h2.9c1.7-1.6 2.7-3.9 2.7-6.7z"/><path fill="#fff" d="M9.4 17.3c2.3 0 4.3-.8 5.7-2.1l-2.9-2.3c-.8.5-1.9.8-3 .8-2.2 0-4.1-1.5-4.8-3.6H1.5v2.4c1.4 2.8 4.3 4.8 7.9 4.8z"/><path fill="#fff" d="M4.6 10.1c-.2-.5-.3-1.1-.3-1.7s.1-1.2.3-1.7V4.3H1.5C.9 5.5.5 6.9.5 8.4s.4 2.9 1 4.1l3.1-2.4z"/><path fill="#fff" d="M9.4 3.6c1.2 0 2.3.4 3.2 1.2l2.4-2.4C13.7 1.1 11.7 0 9.4 0 5.8 0 2.9 2 1.5 4.3l3.1 2.4c.7-2.1 2.6-3.6 4.8-3.6z"/></svg>
                     Sign in with Google
                 </button>
-
                 <div class="links">
                     <a id="signupLink">Don't have an account? Create Account</a>
                     <span class="sep">·</span>
                     <a id="forgotLink">Forgot Password?</a>
                 </div>
-
                 <div class="help-section">
                     <div class="help-label">Need Help?</div>
                     <div class="phone">📞 Phone: 071 455 5513</div>
@@ -101,7 +89,7 @@
                         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></a>
                         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
                     </div>
-                    <div class="copyright">©2026. All rights reserved.</div>
+                    <div class="copyright">©2025. All rights reserved.</div>
                 </div>
             </div>
         </div>
@@ -118,6 +106,7 @@
             <div class="nav-item" data-section="practical"><span class="icon">🛠</span> Practical Sessions</div>
             <div class="nav-item" data-section="profile"><span class="icon">👤</span> Profile</div>
             <div class="nav-item" data-section="institutes"><span class="icon">🏫</span> Institutes</div>
+            <div class="nav-item" data-section="calendar"><span class="icon">📅</span> Calendar</div>
             <div class="section-label">A/L COURSES</div>
             <div class="nav-item" data-section="al2028"><span class="icon">📘</span> A/L 2028</div>
             <div class="nav-item" data-section="al2027"><span class="icon">📗</span> A/L 2027</div>
@@ -138,15 +127,13 @@
         </div>
 
         <!-- Main Content -->
-        <div class="main-content">
-            <!-- ===== HOME SECTION ===== -->
+        <div class="main-content" id="mainContent">
+            <!-- ===== HOME ===== -->
             <div id="section-home" class="section-content">
                 <div class="top-bar">
                     <h1>Welcome back, <span id="dashName">Student</span>! 🎉</h1>
                     <div class="user-badge">
-                        <div class="avatar" id="dashAvatar">
-                            <img src="Profile.png" alt="Profile" id="profileAvatarImg" />
-                        </div>
+                        <div class="avatar" id="dashAvatar"><img src="Profile.png" alt="Profile" id="profileAvatarImg" /></div>
                         <span class="name" id="dashNameBadge">Student</span>
                     </div>
                 </div>
@@ -186,97 +173,80 @@
                 <div style="display:flex;justify-content:flex-end;"><button class="view-details-btn">📊 View Details</button></div>
             </div>
 
-            <!-- ===== MY LESSONS ===== -->
+            <!-- ===== LESSONS ===== -->
             <div id="section-lessons" class="section-content hidden"><div class="section-card"><div class="title">📚 My Lessons</div><div class="list-item">📖 Lesson 1: Introduction to ICT</div><div class="list-item">📖 Lesson 2: Data Representation</div><div class="list-item">📖 Lesson 3: Logic Gates</div><div class="list-item">📖 Lesson 4: Computer Networks</div><div class="list-item">📖 Lesson 5: Programming Basics</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">+ 12 more lessons available</div></div></div>
 
-            <!-- ===== PRACTICAL SESSIONS ===== -->
+            <!-- ===== PRACTICAL ===== -->
             <div id="section-practical" class="section-content hidden"><div class="section-card"><div class="title">🛠 Practical Sessions</div><div class="list-item">💻 Python Programming Lab</div><div class="list-item">🌐 Networking Configuration</div><div class="list-item">🗄️ Database Design & SQL</div><div class="list-item">⚡ Electronics & Circuit Design</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Next session: Saturday 9:00 AM</div></div></div>
 
             <!-- ===== PROFILE ===== -->
             <div id="section-profile" class="section-content hidden">
                 <div class="section-card">
                     <div class="title">👤 Your Profile</div>
-                    <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;">
-                        <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid #db3900;background:#1a1a1a;">
+                    <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:0.8rem;">
+                        <div style="width:70px;height:70px;border-radius:50%;overflow:hidden;border:3px solid var(--primary);background:var(--bg-input);">
                             <img src="Profile.png" alt="Profile" style="width:100%;height:100%;object-fit:cover;" id="profileImgDisplay" />
                         </div>
                         <div>
                             <h3 style="margin:0;color:white;" id="profileNameDisplay">Student</h3>
-                            <p style="margin:0;color:#9ca3af;font-size:0.85rem;" id="profilePhoneDisplay">-</p>
+                            <p style="margin:0;color:var(--text-gray);font-size:0.8rem;" id="profilePhoneDisplay">-</p>
                         </div>
                     </div>
                     <div class="profile-field"><span class="label">Full Name</span><span class="value" id="pFullName">-</span></div>
                     <div class="profile-field"><span class="label">Phone</span><span class="value" id="pPhone">-</span></div>
                     <div class="profile-field"><span class="label">A/L Subject</span><span class="value">ICT</span></div>
                     <div class="profile-field"><span class="label">Batch</span><span class="value">A/L 2026</span></div>
-                    <div style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap;">
+                    <div style="margin-top:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;">
                         <button class="home-btn" id="editProfileBtn">✏️ Edit Profile</button>
                         <button class="home-btn home-btn-outline" id="changePasswordBtn">🔐 Change Password</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ===== EDUCATIONAL INSTITUTES ===== -->
+            <!-- ===== INSTITUTES ===== -->
             <div id="section-institutes" class="section-content hidden">
-                <div class="section-card" style="border-color:#db3900;">
+                <div class="section-card" style="border-color:var(--primary);">
                     <div class="title">🏫 Educational Institutes</div>
-                    <p style="color:#9ca3af;font-size:0.85rem;margin-bottom:1.2rem;">Partner institutes offering quality education across Sri Lanka</p>
-                    
+                    <p style="color:var(--text-gray);font-size:0.8rem;margin-bottom:1rem;">Partner institutes offering quality education across Sri Lanka</p>
                     <div class="institute-grid">
-                        <!-- Sakya Academy -->
-                        <div class="institute-card">
-                            <div class="institute-icon">🎓</div>
-                            <div class="institute-info">
-                                <h4>Sakya Academy of Higher Education</h4>
-                                <p class="address">📍 08 Pietersz Pl, Nugegoda</p>
-                                <p class="phone">📞 0112 816 882</p>
-                                <span class="institute-badge">Premium Partner</span>
-                            </div>
-                        </div>
+                        <div class="institute-card"><div class="institute-icon">🎓</div><div class="institute-info"><h4>Sakya Academy of Higher Education</h4><p class="address">📍 08 Pietersz Pl, Nugegoda</p><p class="phone">📞 0112 816 882</p><span class="institute-badge">Premium Partner</span></div></div>
+                        <div class="institute-card"><div class="institute-icon">🏛️</div><div class="institute-info"><h4>Yahansa - Academy of Higher Education</h4><p class="address">📍 No. 57/1 Makola Rd, Kiribathgoda</p><p class="phone">📞 071 321 9798</p><span class="institute-badge">Premium Partner</span></div></div>
+                        <div class="institute-card"><div class="institute-icon">📚</div><div class="institute-info"><h4>Nanik Higher Education Institute</h4><p class="address">📍 No. 85/2 Weera Lane, Ja Ela Road</p><p class="phone">📞 033 232 0226</p><span class="institute-badge">Premium Partner</span></div></div>
+                        <div class="institute-card"><div class="institute-icon">💻</div><div class="institute-info"><h4>Sipwin</h4><p class="address">📍 No. 51, 1 Kandy Rd, Kurunegala</p><p class="phone">📞 0372 231 010</p><span class="institute-badge">Premium Partner</span></div></div>
+                        <div class="institute-card"><div class="institute-icon">🏫</div><div class="institute-info"><h4>IMS Kandy</h4><p class="address">📍 Colombo Rd, Kandy</p><p class="phone">📞 077 780 6246</p><span class="institute-badge">Premium Partner</span></div></div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Yahansa -->
-                        <div class="institute-card">
-                            <div class="institute-icon">🏛️</div>
-                            <div class="institute-info">
-                                <h4>Yahansa - Academy of Higher Education</h4>
-                                <p class="address">📍 No. 57/1 Makola Rd, Kiribathgoda</p>
-                                <p class="phone">📞 071 321 9798</p>
-                                <span class="institute-badge">Premium Partner</span>
-                            </div>
+            <!-- ===== CALENDAR ===== -->
+            <div id="section-calendar" class="section-content hidden">
+                <div class="section-card" style="border-color:var(--primary);">
+                    <div class="title">📅 Work Hours & Tasks Calendar</div>
+                    <p style="color:var(--text-gray);font-size:0.8rem;margin-bottom:1rem;">Add work hours, tasks, and class dates. Search and manage your schedule.</p>
+                    <div class="search-bar">
+                        <input type="text" id="eventSearchInput" placeholder="🔍 Search events..." />
+                        <button class="search-btn" id="searchEventsBtn">Search</button>
+                        <button class="clear-btn" id="clearSearchBtn">Clear</button>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div class="calendar-header">
+                            <button class="nav-btn" id="prevMonthBtn">◀</button>
+                            <span class="month-year" id="calendarMonthYear">June 2025</span>
+                            <button class="nav-btn" id="nextMonthBtn">▶</button>
+                            <button class="nav-btn" id="todayBtn" style="background:var(--primary);color:white;">Today</button>
                         </div>
-
-                        <!-- Nanik -->
-                        <div class="institute-card">
-                            <div class="institute-icon">📚</div>
-                            <div class="institute-info">
-                                <h4>Nanik Higher Education Institute</h4>
-                                <p class="address">📍 No. 85/2 Weera Lane, Ja Ela Road</p>
-                                <p class="phone">📞 033 232 0226</p>
-                                <span class="institute-badge">Premium Partner</span>
-                            </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            <div class="day-name">Sun</div>
+                            <div class="day-name">Mon</div>
+                            <div class="day-name">Tue</div>
+                            <div class="day-name">Wed</div>
+                            <div class="day-name">Thu</div>
+                            <div class="day-name">Fri</div>
+                            <div class="day-name">Sat</div>
                         </div>
-
-                        <!-- Sipwin -->
-                        <div class="institute-card">
-                            <div class="institute-icon">💻</div>
-                            <div class="institute-info">
-                                <h4>Sipwin</h4>
-                                <p class="address">📍 No. 51, 1 Kandy Rd, Kurunegala</p>
-                                <p class="phone">📞 0372 231 010</p>
-                                <span class="institute-badge">Premium Partner</span>
-                            </div>
-                        </div>
-
-                        <!-- IMS Kandy -->
-                        <div class="institute-card">
-                            <div class="institute-icon">🏫</div>
-                            <div class="institute-info">
-                                <h4>IMS Kandy</h4>
-                                <p class="address">📍 Colombo Rd, Kandy</p>
-                                <p class="phone">📞 077 780 6246</p>
-                                <span class="institute-badge">Premium Partner</span>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="event-list" id="eventList">
+                        <div class="no-events">📭 No events for this day. Click a date to add one.</div>
                     </div>
                 </div>
             </div>
@@ -290,7 +260,7 @@
             <!-- ===== A/L 2026 ===== -->
             <div id="section-al2026" class="section-content hidden"><div class="section-card"><div class="title">📕 A/L 2026</div><div class="list-item">📖 Revision: Past Papers</div><div class="list-item">📖 Mock Exams</div><div class="list-item">📖 Practical Sessions</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Classes: Mon, Wed, Fri 6:30 PM</div></div></div>
 
-            <!-- ===== AL VIDEO MODULES ===== -->
+            <!-- ===== AL VIDEO ===== -->
             <div id="section-alvideo" class="section-content hidden"><div class="section-card"><div class="title">🎥 AL Video Modules</div><div class="list-item">🎬 Video 1: Number Systems</div><div class="list-item">🎬 Video 2: Boolean Algebra</div><div class="list-item">🎬 Video 3: Logic Gates</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📺 All videos available on YouTube</div></div></div>
 
             <!-- ===== GIT ===== -->
@@ -302,7 +272,7 @@
             <!-- ===== O/L 2024 ===== -->
             <div id="section-ol2024" class="section-content hidden"><div class="section-card"><div class="title">📒 O/L 2024 (Grade 11)</div><div class="list-item">📖 Unit 1: Networks</div><div class="list-item">📖 Unit 2: Programming</div><div class="list-item">📖 Unit 3: Databases</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Classes: Saturday 2:00 PM</div></div></div>
 
-            <!-- ===== OL VIDEO MODULES ===== -->
+            <!-- ===== OL VIDEO ===== -->
             <div id="section-olvideo" class="section-content hidden"><div class="section-card"><div class="title">🎬 OL Video Modules</div><div class="list-item">🎬 Video 1: Hardware Basics</div><div class="list-item">🎬 Video 2: Internet Safety</div><div class="list-item">🎬 Video 3: Programming Logic</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📺 All videos available on YouTube</div></div></div>
 
             <!-- ===== TUTES ===== -->
@@ -311,25 +281,107 @@
             <!-- ===== PAYMENTS ===== -->
             <div id="section-payments" class="section-content hidden"><div class="section-card"><div class="title">💳 Payments</div><div class="list-item">💰 Annual Fee: LKR 15,000</div><div class="list-item">📅 Due Date: 2026-08-20</div><div class="list-item">✅ Status: Paid</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📞 Contact: 071 455 5513</div></div></div>
 
-            <!-- ===== TELEGRAM GROUPS ===== -->
+            <!-- ===== TELEGRAM ===== -->
             <div id="section-telegram" class="section-content hidden"><div class="section-card"><div class="title">📱 Telegram Groups</div><div class="list-item">📢 A/L 2028 Group</div><div class="list-item">📢 A/L 2027 Group</div><div class="list-item">📢 A/L 2026 Group</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">🔗 Join via: t.me/ictfromabc</div></div></div>
 
-            <!-- ===== SOCIAL MEDIA ===== -->
+            <!-- ===== SOCIALS ===== -->
             <div id="section-socials" class="section-content hidden"><div class="section-card"><div class="title">🌐 Social Media</div><div class="list-item">📘 Facebook: @ictfromabc</div><div class="list-item">📺 YouTube: ICT from ABC</div><div class="list-item">📸 Instagram: @ictfromabc</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">🔗 Follow us for updates</div></div></div>
 
-            <!-- ===== BANK DETAILS ===== -->
-            <div id="section-bank" class="section-content hidden"><div class="section-card"><div class="title">🏦 Bank Account Details</div><div class="list-item"><strong>B.M.R.C. BANDARANAYAKE</strong></div><div class="list-item">🏦 1006 5704 9654 · SAMPATH BANK</div><div class="list-item">📍 KURUNEGALA SUPER BRANCH</div><div class="list-item" style="border-bottom:1px solid #1a1a1a;"></div><div class="list-item"><strong>B.M.R.C. BANDARANAYAKE</strong></div><div class="list-item">🏦 8160 100 221 · COMMERCIAL BANK</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📍 KURUNEGALA MAIN BRANCH</div></div></div>
+            <!-- ===== BANK ===== -->
+            <div id="section-bank" class="section-content hidden"><div class="section-card"><div class="title">🏦 Bank Account Details</div><div class="list-item"><strong>B.M.R.C. BANDARANAYAKE</strong></div><div class="list-item">🏦 1006 5704 9654 · SAMPATH BANK</div><div class="list-item">📍 KURUNEGALA SUPER BRANCH</div><div class="list-item" style="border-bottom:1px solid var(--border-color);"></div><div class="list-item"><strong>B.M.R.C. BANDARANAYAKE</strong></div><div class="list-item">🏦 8160 100 221 · COMMERCIAL BANK</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📍 KURUNEGALA MAIN BRANCH</div></div></div>
         </div>
     </div>
 
     <!-- ===== MODALS ===== -->
-    <div id="signupModal" class="modal-overlay"><div class="modal-card"><h2>📝 Create Account</h2><label>Full Name</label><input type="text" id="signupName" /><label>Phone Number</label><input type="text" id="signupPhone" /><label>Password</label><input type="password" id="signupPass" /><button class="home-btn" id="signupBtn">Sign Up</button><p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('signupModal')">✕ close</p></div></div>
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>📝 Create Account</h2>
+            <label>Full Name</label><input type="text" id="signupName" />
+            <label>Phone Number</label><input type="text" id="signupPhone" />
+            <label>Password</label><input type="password" id="signupPass" />
+            <button class="home-btn" id="signupBtn">Sign Up</button>
+            <div class="close-modal-btn" onclick="closeModal('signupModal')">✕ close</div>
+        </div>
+    </div>
 
-    <div id="forgotModal" class="modal-overlay forgot-modal"><div class="modal-card"><h2>🔑 Reset Password</h2><p class="subtitle">Enter your phone number to receive an OTP</p><label>Phone Number</label><div class="otp-input-group"><input type="text" id="forgotPhone" placeholder="07X XXX XXXX" /><button id="sendOtpBtn">Send OTP</button></div><div id="otpTimer" class="otp-timer"></div><label>Enter OTP</label><div class="otp-input-group"><input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6" /><button id="verifyOtpBtn">Verify</button></div><div id="otpStatus" class="otp-status"></div><label>New Password</label><input type="password" id="resetNewPass" placeholder="Enter new password (min 6 chars)" /><button class="reset-btn" id="resetPassBtn">🔄 Reset Password</button><div class="close-btn" onclick="closeModal('forgotModal')">✕ close</div></div></div>
+    <!-- Forgot Modal -->
+    <div id="forgotModal" class="modal-overlay forgot-modal">
+        <div class="modal-card">
+            <h2>🔑 Reset Password</h2>
+            <p style="text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem;">Enter your phone number to receive an OTP</p>
+            <label>Phone Number</label>
+            <div style="display:flex;gap:0.5rem;">
+                <input type="text" id="forgotPhone" placeholder="07X XXX XXXX" style="flex:1;" />
+                <button id="sendOtpBtn" style="flex-shrink:0;padding:0.7rem 1.2rem;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:none;color:white;border-radius:40px;font-weight:700;cursor:pointer;">Send OTP</button>
+            </div>
+            <div id="otpTimer" style="text-align:center;color:#ff6b3d;font-weight:600;font-size:0.85rem;margin:0.3rem 0;padding:0.3rem;background:rgba(219,57,0,0.1);border-radius:12px;border:1px dashed var(--primary);"></div>
+            <label>Enter OTP</label>
+            <div style="display:flex;gap:0.5rem;">
+                <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6" style="flex:1;" />
+                <button id="verifyOtpBtn" style="flex-shrink:0;padding:0.7rem 1.2rem;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:none;color:white;border-radius:40px;font-weight:700;cursor:pointer;">Verify</button>
+            </div>
+            <div id="otpStatus" style="text-align:center;font-weight:600;font-size:0.8rem;margin:0.2rem 0;"></div>
+            <label>New Password</label>
+            <input type="password" id="resetNewPass" placeholder="Enter new password (min 6 chars)" />
+            <button class="reset-btn" id="resetPassBtn" style="background:linear-gradient(135deg,#0a8f3c,#0cb04a);border:none;color:white;font-weight:700;padding:0.8rem;border-radius:40px;width:100%;cursor:pointer;transition:0.3s;font-size:1rem;margin-top:0.3rem;">🔄 Reset Password</button>
+            <div class="close-modal-btn" onclick="closeModal('forgotModal')">✕ close</div>
+        </div>
+    </div>
 
-    <div id="changePassModal" class="modal-overlay"><div class="modal-card"><h2>🔐 Change Password</h2><label>New Password</label><input type="password" id="newPass" /><button class="home-btn" id="changePassBtn">Update</button><p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('changePassModal')">✕ close</p></div></div>
+    <!-- Change Password Modal -->
+    <div id="changePassModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>🔐 Change Password</h2>
+            <label>New Password</label><input type="password" id="newPass" />
+            <button class="home-btn" id="changePassBtn">Update</button>
+            <div class="close-modal-btn" onclick="closeModal('changePassModal')">✕ close</div>
+        </div>
+    </div>
 
-    <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Full Profile</h2><label>Full Name</label><input type="text" id="editFullName" /><label>Address</label><input type="text" id="editAddress" /><label>Phone Number</label><input type="text" id="editPhone" /><label>WhatsApp Number</label><input type="text" id="editWhatsApp" /><label>A/L Subject</label><input type="text" id="editSubject" placeholder="e.g. ICT, Physics" /><label>School</label><input type="text" id="editSchool" /><label>Birthday</label><input type="date" id="editBirthday" /><label>NIC Number</label><input type="text" id="editNic" /><label>Institute</label><input type="text" id="editInstitute" /><label>Profile Photo URL</label><input type="text" id="editPhoto" placeholder="Profile.png" value="Profile.png" /><button class="home-btn" id="saveProfileBtn">Save Profile</button><p style="color:#888;font-size:0.8rem;margin-top:0.8rem;cursor:pointer;" onclick="closeModal('profileModal')">✕ close</p></div></div>
+    <!-- Profile Edit Modal -->
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>✏️ Edit Full Profile</h2>
+            <label>Full Name</label><input type="text" id="editFullName" />
+            <label>Address</label><input type="text" id="editAddress" />
+            <label>Phone Number</label><input type="text" id="editPhone" />
+            <label>WhatsApp Number</label><input type="text" id="editWhatsApp" />
+            <label>A/L Subject</label><input type="text" id="editSubject" placeholder="e.g. ICT, Physics" />
+            <label>School</label><input type="text" id="editSchool" />
+            <label>Birthday</label><input type="date" id="editBirthday" />
+            <label>NIC Number</label><input type="text" id="editNic" />
+            <label>Institute</label><input type="text" id="editInstitute" />
+            <label>Profile Photo URL</label><input type="text" id="editPhoto" placeholder="Profile.png" value="Profile.png" />
+            <button class="home-btn" id="saveProfileBtn">Save Profile</button>
+            <div class="close-modal-btn" onclick="closeModal('profileModal')">✕ close</div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2 id="eventModalTitle">📝 Add Event</h2>
+            <label>Date</label>
+            <input type="date" id="eventDate" />
+            <label>Title</label>
+            <input type="text" id="eventTitle" placeholder="e.g. Physics Practical" />
+            <label>Type</label>
+            <select id="eventType">
+                <option value="work">💼 Work Hours</option>
+                <option value="task">✅ Task</option>
+                <option value="class">📚 Class Date</option>
+                <option value="other">📌 Other</option>
+            </select>
+            <label>Description</label>
+            <textarea id="eventDesc" placeholder="Details about this event..."></textarea>
+            <label>Time</label>
+            <input type="time" id="eventTime" />
+            <button class="home-btn" id="saveEventBtn">💾 Save Event</button>
+            <button class="home-btn home-btn-outline" id="deleteEventBtn" style="margin-top:0.3rem;display:none;">🗑️ Delete Event</button>
+            <div class="close-modal-btn" onclick="closeModal('eventModal')">✕ close</div>
+        </div>
+    </div>
 
     <!-- ===== CHATBOT ===== -->
     <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Assistant</button>
