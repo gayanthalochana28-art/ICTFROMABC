@@ -1,3 +1,6 @@
+<!-- ============================================================
+     FILE: index.html
+     ============================================================ -->
 <!DOCTYPE html>
 <html lang="en" class="poppins_e1585a45-module__UP0NmG__variable h-full antialiased">
 <head>
@@ -25,9 +28,7 @@
     <link rel="preload" href="loginpc.png" as="image" />
     <link rel="preload" href="logo.png" as="image" />
     <link rel="preload" href="Profile.png" as="image" />
-
-    <!-- ===== EXTERNAL STYLESHEET ===== -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" href="Transparent_3D_book_render.png" as="image" />
 
     <!-- ===== FIREBASE SDK ===== -->
     <script type="importmap">
@@ -41,10 +42,13 @@
             }
         }
     </script>
+
+    <!-- ===== EXTERNAL STYLESHEET ===== -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ===== PARTICLE CANVAS ===== -->
+    <!-- ===== PARTICLE CANVAS (Animated Background) ===== -->
     <canvas id="particleCanvas"></canvas>
 
     <!-- ===== NOTIFICATION BAR ===== -->
@@ -160,26 +164,29 @@
                 </div>
                 <div class="continue-learning"><div class="title">📖 Continue Learning</div><div class="dates"><span class="date-chip">May 1</span><span class="date-chip">May 7</span><span class="date-chip">May 14</span><span class="date-chip">May 21</span><span class="date-chip">May 28</span><span class="date-chip active">May 31</span></div></div>
                 <div style="display:flex;justify-content:flex-end;"><button class="view-details-btn">📊 View Details</button></div>
+
+                <!-- ===== 3D BOOK MODEL ===== -->
+                <div class="book-model">
+                    <img src="Transparent_3D_book_render.png" alt="3D Book Model" />
+                </div>
             </div>
 
-            <!-- ===== NOTICE BOARD ===== -->
+            <!-- ===== NOTICE BOARD (Google Sheets powered) ===== -->
             <div id="section-notice" class="section-content hidden">
                 <div class="notice-board">
-                    <div class="title">
-                        📢 Notice Board <span class="badge">Live</span>
-                        <span class="sheet-link" onclick="openTutorialModal()"></span>
+                    <div class="title">📢 Notice Board <span class="badge">Live</span></div>
+                    <div id="noticeList">
+                        <div class="notice-item">
+                            <div class="notice-text"><span class="notice-pin">📌</span> Loading notices from Google Sheets...</div>
+                            <div class="notice-time">⏳ Please wait</div>
+                        </div>
                     </div>
-                    <div id="noticeList"></div>
                     <div class="notice-form">
                         <input type="text" id="noticeInput" placeholder="📝 Write a notice..." />
                         <button id="postNoticeBtn">📤 Post</button>
                     </div>
-                    <div class="notice-actions">
-                        <button id="refreshNoticesBtn">🔄 Refresh from Sheet</button>
-                        <button id="clearLocalNoticesBtn">🗑️ Clear Local</button>
-                    </div>
-                    <div style="margin-top:0.3rem;font-size:0.65rem;color:var(--text-gray);">
-                        Notices . <a href="#" onclick="openTutorialModal();return false;" style="color:var(--primary-light);text-decoration:underline;">Learn how to set up</a>
+                    <div style="margin-top:0.5rem;font-size:0.6rem;color:var(--text-gray);">
+                        💡 Notices are automatically synced from Google Sheets. <a href="#" onclick="fetchGoogleSheetsNotices(); return false;" style="color:var(--primary);">Refresh</a>
                     </div>
                 </div>
             </div>
@@ -311,23 +318,7 @@
     <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Full Profile</h2><label>Full Name</label><input type="text" id="editFullName" /><label>Address</label><input type="text" id="editAddress" /><label>Phone Number</label><input type="text" id="editPhone" /><label>WhatsApp Number</label><input type="text" id="editWhatsApp" /><label>A/L Subject</label><input type="text" id="editSubject" placeholder="e.g. ICT, Physics" /><label>School</label><input type="text" id="editSchool" /><label>Birthday</label><input type="date" id="editBirthday" /><label>NIC Number</label><input type="text" id="editNic" /><label>Institute</label><input type="text" id="editInstitute" /><button class="home-btn" id="saveProfileBtn">Save Profile</button><div class="close-modal-btn" onclick="closeModal('profileModal')">✕ close</div></div></div>
     <div id="eventModal" class="modal-overlay"><div class="modal-card"><h2 id="eventModalTitle">📝 Add Event</h2><label>Date</label><input type="date" id="eventDate" /><label>Title</label><input type="text" id="eventTitle" placeholder="e.g. Physics Practical" /><label>Type</label><select id="eventType"><option value="work">💼 Work Hours</option><option value="task">✅ Task</option><option value="class">📚 Class Date</option><option value="other">📌 Other</option></select><label>Description</label><textarea id="eventDesc" placeholder="Details about this event..."></textarea><label>Time</label><input type="time" id="eventTime" /><button class="home-btn" id="saveEventBtn">💾 Save Event</button><button class="home-btn home-btn-outline" id="deleteEventBtn" style="margin-top:0.3rem;display:none;">🗑️ Delete Event</button><div class="close-modal-btn" onclick="closeModal('eventModal')">✕ close</div></div></div>
 
-    <!-- ===== TUTORIAL MODAL ===== -->
-    <div id="tutorialModal" class="modal-overlay tutorial-modal">
-        <div class="modal-card">
-            <h2>📊 Google Sheets Tutorial</h2>
-            <p style="color:var(--text-gray);font-size:0.9rem;margin-bottom:1rem;">Connect your Notice Board to a Google Sheet for easy updates.</p>
-            <div class="step"><div class="num">1</div><div class="content"><strong>Create a Google Sheet</strong><br />Go to <a href="https://sheets.google.com" target="_blank" style="color:var(--primary-light);">sheets.google.com</a> and create a new spreadsheet.</div></div>
-            <div class="step"><div class="num">2</div><div class="content"><strong>Set up columns</strong><br />Create three columns: <code>Timestamp</code>, <code>Message</code>, <code>Active</code>.<br />Example: <code>2025-06-15</code>, <code>Welcome to ICT class!</code>, <code>TRUE</code></div></div>
-            <div class="step"><div class="num">3</div><div class="content"><strong>Add notices</strong><br />Fill rows with your notices. Set <code>Active</code> to <code>TRUE</code> to show, <code>FALSE</code> to hide.</div></div>
-            <div class="step"><div class="num">4</div><div class="content"><strong>Publish to the web</strong><br />Click <strong>File → Share → Publish to web</strong>. Choose <strong>CSV</strong> format. Copy the URL.</div></div>
-            <div class="step"><div class="num">5</div><div class="content"><strong>Replace the URL in code</strong><br />In <code>script.js</code>, find <code>const NOTICE_SHEET_URL</code> and paste your URL.</div></div>
-            <div class="step"><div class="num">6</div><div class="content"><strong>Done!</strong><br />Click <strong>Refresh from Sheet</strong> in the Notice Board to fetch your data.</div></div>
-            <button class="home-btn" onclick="closeModal('tutorialModal')">👍 Got it!</button>
-            <div class="close-modal-btn" onclick="closeModal('tutorialModal')">✕ close</div>
-        </div>
-    </div>
-
-    <!-- ===== CHATBOT ===== -->
+    <!-- ===== ADVANCED CHATBOT ===== -->
     <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Assistant</button>
     <div class="chatbot-window" id="chatWindow">
         <div class="chat-header">
