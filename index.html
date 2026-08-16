@@ -1,23 +1,35 @@
-<!-- ============================================================
-     FILE: index.html (Updated with advanced chatbot and mobile UI)
-     ============================================================ -->
 <!DOCTYPE html>
 <html lang="en" class="poppins_e1585a45-module__UP0NmG__variable h-full antialiased">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>ictfromabc · Student Portal</title>
+
+    <!-- ===== WEBSITE DP / FAVICON ===== -->
+    <link rel="icon" href="loginmb.png" type="image/png" sizes="256x256" />
+    <link rel="apple-touch-icon" href="loginpc.png" sizes="180x180" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:title" content="ictfromabc - Student Portal" />
+    <meta property="og:description" content="Student Login Portal for ictfromabc - Sri Lanka's largest ICT class" />
+    <meta property="og:image" content="logo.png" />
+
+    <!-- ===== FONT PRELOADS ===== -->
     <link rel="preload" href="/_next/static/immutable/media/47fe1b7cd6e6ed85-s.p.1n2oi-d4a-xww.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/829ba4228c966254-s.p.0zvxjg5nywxta.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/8e6fa89aa22d24ec-s.p.1bg6trwi21i5q.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/a218039a3287bcfd-s.p.17e3l4txdrufi.woff2" as="font" crossorigin="" type="font/woff2" />
     <link rel="preload" href="/_next/static/immutable/media/e2334d715941921e-s.p.2g9xiodaln20i.woff2" as="font" crossorigin="" type="font/woff2" />
+
+    <!-- ===== IMAGE PRELOADS ===== -->
     <link rel="preload" href="loginmb.png" as="image" />
     <link rel="preload" href="loginpc.png" as="image" />
     <link rel="preload" href="logo.png" as="image" />
     <link rel="preload" href="Profile.png" as="image" />
-    <link rel="icon" href="loginmb.png" type="image/png" />
-    <link rel="apple-touch-icon" href="loginpc.png" />
+
+    <!-- ===== EXTERNAL STYLESHEET ===== -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- ===== FIREBASE SDK ===== -->
     <script type="importmap">
         {
             "imports": {
@@ -29,14 +41,27 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+    <!-- ===== PARTICLE CANVAS ===== -->
+    <canvas id="particleCanvas"></canvas>
 
     <!-- ===== NOTIFICATION BAR ===== -->
     <div id="notificationBar" class="notification-bar">
         <div class="marquee" id="notifMarquee"><span>📢 Loading notifications...</span></div>
         <button class="close-notif" id="closeNotifBtn">✕</button>
+    </div>
+
+    <!-- ===== GREETING POPUP ===== -->
+    <div id="greetingPopup" class="greeting-overlay">
+        <div class="greeting-card">
+            <div class="greeting-icon" id="greetingIcon">🌅</div>
+            <div class="greeting-title" id="greetingTitle">Good Morning, <span id="greetingName">Student</span>!</div>
+            <div class="greeting-sub" id="greetingSub">Welcome to ictfromabc</div>
+            <div class="greeting-time" id="greetingTime">⏰ Today is a great day to learn!</div>
+            <button class="greeting-btn" onclick="closeGreeting()">🚀 Let's Get Started</button>
+        </div>
     </div>
 
     <!-- ===== ABC WALLPAPER ===== -->
@@ -65,7 +90,7 @@
                         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
                         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></a>
                         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-                    </div><div class="copyright">©2026. All rights reserved.</div>
+                    </div><div class="copyright">©2025. All rights reserved.</div>
                 </div>
             </div>
         </div>
@@ -77,6 +102,8 @@
             <div class="logo"><span>ict</span><span>fromabc</span></div>
             <div class="section-label">MAIN</div>
             <div class="nav-item active" data-section="home"><span class="icon">🏠</span> Home</div>
+            <div class="nav-item" data-section="notice"><span class="icon">📢</span> Notice Board</div>
+            <div class="nav-item" data-section="analyzer"><span class="icon">⏱️</span> Work Analyzer</div>
             <div class="nav-item" data-section="lessons"><span class="icon">📚</span> My Lessons</div>
             <div class="nav-item" data-section="practical"><span class="icon">🛠</span> Practical Sessions</div>
             <div class="nav-item" data-section="profile"><span class="icon">👤</span> Profile</div>
@@ -102,7 +129,7 @@
         </div>
 
         <div class="main-content" id="mainContent">
-            <!-- HOME -->
+            <!-- ===== HOME ===== -->
             <div id="section-home" class="section-content">
                 <div class="top-bar">
                     <h1>Welcome back, <span id="dashName">Student</span>! 🎉</h1>
@@ -135,13 +162,65 @@
                 <div style="display:flex;justify-content:flex-end;"><button class="view-details-btn">📊 View Details</button></div>
             </div>
 
-            <!-- LESSONS -->
+            <!-- ===== NOTICE BOARD ===== -->
+            <div id="section-notice" class="section-content hidden">
+                <div class="notice-board">
+                    <div class="title">
+                        📢 Notice Board <span class="badge">Live</span>
+                        <span class="sheet-link" onclick="openTutorialModal()"></span>
+                    </div>
+                    <div id="noticeList"></div>
+                    <div class="notice-form">
+                        <input type="text" id="noticeInput" placeholder="📝 Write a notice..." />
+                        <button id="postNoticeBtn">📤 Post</button>
+                    </div>
+                    <div class="notice-actions">
+                        <button id="refreshNoticesBtn">🔄 Refresh from Sheet</button>
+                        <button id="clearLocalNoticesBtn">🗑️ Clear Local</button>
+                    </div>
+                    <div style="margin-top:0.3rem;font-size:0.65rem;color:var(--text-gray);">
+                        Notices . <a href="#" onclick="openTutorialModal();return false;" style="color:var(--primary-light);text-decoration:underline;">Learn how to set up</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WORK TIME ANALYZER ===== -->
+            <div id="section-analyzer" class="section-content hidden">
+                <div class="work-analyzer">
+                    <div class="title">⏱️ Work Time Analyzer</div>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number" id="timerDisplay">00:00:00</div>
+                            <div class="stat-label">Current Session</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalTimeDisplay">00:00:00</div>
+                            <div class="stat-label">Total Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="sessionCount">0</div>
+                            <div class="stat-label">Sessions Today</div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-start" id="startTimerBtn">▶ Start Session</button>
+                        <button class="btn-stop" id="stopTimerBtn" disabled>⏹ Stop Session</button>
+                        <button class="btn-reset" id="resetTimerBtn">🔄 Reset Today</button>
+                    </div>
+                    <div class="status" id="timerStatus">
+                        <span class="status-dot inactive" id="statusDot"></span>
+                        <span id="statusText">Not started</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LESSONS ===== -->
             <div id="section-lessons" class="section-content hidden"><div class="section-card"><div class="title">📚 My Lessons</div><div class="list-item">📖 Lesson 1: Introduction to ICT</div><div class="list-item">📖 Lesson 2: Data Representation</div><div class="list-item">📖 Lesson 3: Logic Gates</div><div class="list-item">📖 Lesson 4: Computer Networks</div><div class="list-item">📖 Lesson 5: Programming Basics</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">+ 12 more lessons available</div></div></div>
 
-            <!-- PRACTICAL -->
+            <!-- ===== PRACTICAL ===== -->
             <div id="section-practical" class="section-content hidden"><div class="section-card"><div class="title">🛠 Practical Sessions</div><div class="list-item">💻 Python Programming Lab</div><div class="list-item">🌐 Networking Configuration</div><div class="list-item">🗄️ Database Design & SQL</div><div class="list-item">⚡ Electronics & Circuit Design</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Next session: Saturday 9:00 AM</div></div></div>
 
-            <!-- PROFILE -->
+            <!-- ===== PROFILE ===== -->
             <div id="section-profile" class="section-content hidden">
                 <div class="section-card">
                     <div class="title">👤 Your Profile</div>
@@ -168,7 +247,7 @@
                 </div>
             </div>
 
-            <!-- INSTITUTES -->
+            <!-- ===== INSTITUTES ===== -->
             <div id="section-institutes" class="section-content hidden">
                 <div class="section-card" style="border-color:var(--primary);">
                     <div class="title">🏫 Educational Institutes</div>
@@ -183,7 +262,7 @@
                 </div>
             </div>
 
-            <!-- CALENDAR -->
+            <!-- ===== CALENDAR ===== -->
             <div id="section-calendar" class="section-content hidden">
                 <div class="section-card" style="border-color:var(--primary);">
                     <div class="title">📅 Work Hours & Tasks Calendar</div>
@@ -208,7 +287,7 @@
                 </div>
             </div>
 
-            <!-- A/L 2028 -->
+            <!-- ===== OTHER SECTIONS ===== -->
             <div id="section-al2028" class="section-content hidden"><div class="section-card"><div class="title">📘 A/L 2028</div><div class="list-item">📖 Module 1: Fundamentals of ICT</div><div class="list-item">📖 Module 2: Programming Concepts</div><div class="list-item">📖 Module 3: Network Technologies</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Classes: Mon & Wed 6:30 PM</div></div></div>
             <div id="section-al2027" class="section-content hidden"><div class="section-card"><div class="title">📗 A/L 2027</div><div class="list-item">📖 Module 1: System Analysis</div><div class="list-item">📖 Module 2: Advanced Programming</div><div class="list-item">📖 Module 3: Web Development</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Classes: Tue & Thu 6:30 PM</div></div></div>
             <div id="section-al2026" class="section-content hidden"><div class="section-card"><div class="title">📕 A/L 2026</div><div class="list-item">📖 Revision: Past Papers</div><div class="list-item">📖 Mock Exams</div><div class="list-item">📖 Practical Sessions</div><div class="list-item" style="border-bottom:none;color:#db3900;font-weight:600;">📅 Classes: Mon, Wed, Fri 6:30 PM</div></div></div>
@@ -232,7 +311,23 @@
     <div id="profileModal" class="modal-overlay"><div class="modal-card"><h2>✏️ Edit Full Profile</h2><label>Full Name</label><input type="text" id="editFullName" /><label>Address</label><input type="text" id="editAddress" /><label>Phone Number</label><input type="text" id="editPhone" /><label>WhatsApp Number</label><input type="text" id="editWhatsApp" /><label>A/L Subject</label><input type="text" id="editSubject" placeholder="e.g. ICT, Physics" /><label>School</label><input type="text" id="editSchool" /><label>Birthday</label><input type="date" id="editBirthday" /><label>NIC Number</label><input type="text" id="editNic" /><label>Institute</label><input type="text" id="editInstitute" /><button class="home-btn" id="saveProfileBtn">Save Profile</button><div class="close-modal-btn" onclick="closeModal('profileModal')">✕ close</div></div></div>
     <div id="eventModal" class="modal-overlay"><div class="modal-card"><h2 id="eventModalTitle">📝 Add Event</h2><label>Date</label><input type="date" id="eventDate" /><label>Title</label><input type="text" id="eventTitle" placeholder="e.g. Physics Practical" /><label>Type</label><select id="eventType"><option value="work">💼 Work Hours</option><option value="task">✅ Task</option><option value="class">📚 Class Date</option><option value="other">📌 Other</option></select><label>Description</label><textarea id="eventDesc" placeholder="Details about this event..."></textarea><label>Time</label><input type="time" id="eventTime" /><button class="home-btn" id="saveEventBtn">💾 Save Event</button><button class="home-btn home-btn-outline" id="deleteEventBtn" style="margin-top:0.3rem;display:none;">🗑️ Delete Event</button><div class="close-modal-btn" onclick="closeModal('eventModal')">✕ close</div></div></div>
 
-    <!-- ===== ADVANCED CHATBOT ===== -->
+    <!-- ===== TUTORIAL MODAL ===== -->
+    <div id="tutorialModal" class="modal-overlay tutorial-modal">
+        <div class="modal-card">
+            <h2>📊 Google Sheets Tutorial</h2>
+            <p style="color:var(--text-gray);font-size:0.9rem;margin-bottom:1rem;">Connect your Notice Board to a Google Sheet for easy updates.</p>
+            <div class="step"><div class="num">1</div><div class="content"><strong>Create a Google Sheet</strong><br />Go to <a href="https://sheets.google.com" target="_blank" style="color:var(--primary-light);">sheets.google.com</a> and create a new spreadsheet.</div></div>
+            <div class="step"><div class="num">2</div><div class="content"><strong>Set up columns</strong><br />Create three columns: <code>Timestamp</code>, <code>Message</code>, <code>Active</code>.<br />Example: <code>2025-06-15</code>, <code>Welcome to ICT class!</code>, <code>TRUE</code></div></div>
+            <div class="step"><div class="num">3</div><div class="content"><strong>Add notices</strong><br />Fill rows with your notices. Set <code>Active</code> to <code>TRUE</code> to show, <code>FALSE</code> to hide.</div></div>
+            <div class="step"><div class="num">4</div><div class="content"><strong>Publish to the web</strong><br />Click <strong>File → Share → Publish to web</strong>. Choose <strong>CSV</strong> format. Copy the URL.</div></div>
+            <div class="step"><div class="num">5</div><div class="content"><strong>Replace the URL in code</strong><br />In <code>script.js</code>, find <code>const NOTICE_SHEET_URL</code> and paste your URL.</div></div>
+            <div class="step"><div class="num">6</div><div class="content"><strong>Done!</strong><br />Click <strong>Refresh from Sheet</strong> in the Notice Board to fetch your data.</div></div>
+            <button class="home-btn" onclick="closeModal('tutorialModal')">👍 Got it!</button>
+            <div class="close-modal-btn" onclick="closeModal('tutorialModal')">✕ close</div>
+        </div>
+    </div>
+
+    <!-- ===== CHATBOT ===== -->
     <button class="chatbot-toggle pulse-glow" id="chatToggle">💬 AI Assistant</button>
     <div class="chatbot-window" id="chatWindow">
         <div class="chat-header">
@@ -258,6 +353,7 @@
         </div>
     </div>
 
+    <!-- ===== EXTERNAL JAVASCRIPT ===== -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
